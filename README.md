@@ -9,3 +9,5 @@ The user can choose the speed of the display.
 The user can choose the display colour scheme.
 
 One font for version 1.0
+
+fix the type error
