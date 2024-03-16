@@ -13,6 +13,7 @@ export default function App() {
   const [messageToDisplay, setMessageToDisplay] = useState();
   const [showingFlash, setShowingFlash] = useState(false);
   const [showingTickertape, setShowingTickertape] = useState(false);
+  const [userTime, setUserTime] = useState(10000);
 
   // get user screen dimensions
 
@@ -78,6 +79,7 @@ export default function App() {
         width={screenWidth}
         height={screenHeight}
         length={messageToDisplay.length}
+        userTime={userTime}
       />
     )) ||
     (!showingFlash && !showingTickertape && (
