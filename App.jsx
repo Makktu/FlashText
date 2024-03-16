@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import Title from './src/gui/Title';
 import Input from './src/components/Input';
 import Options from './src/components/Options';
@@ -14,13 +14,24 @@ export default function App() {
   const [showingFlash, setShowingFlash] = useState(false);
   const [showingTickertape, setShowingTickertape] = useState(false);
 
+  // get user screen dimensions
+
+  const screenWidth = Dimensions.get('window').width;
+  const screenHeight = Dimensions.get('window').height;
+
   const inputHandler = (enteredText) => {
     setEnteredText(enteredText);
-    console.log(enteredText);
   };
 
   const clearPressHandler = () => {
     setEnteredText('');
+  };
+
+  const returnTap = () => {
+    // make sure the default screen displays
+    // when returning from either of the display screens
+    setShowingFlash(false);
+    setShowingTickertape(false);
   };
 
   const startDisplay = () => {
@@ -36,7 +47,7 @@ export default function App() {
       setShowingTickertape(false);
       setShowingFlash(true);
     } else {
-      setMessageToDisplay(messageToDisplay);
+      setMessageToDisplay(enteredText);
       console.log(messageToDisplay, typeof messageToDisplay);
       setShowingFlash(false);
       setShowingTickertape(true);
@@ -57,8 +68,18 @@ export default function App() {
   };
 
   return (
-    (showingFlash && <DisplayFlashMessage message={enteredText} />) ||
-    (showingTickertape && <DisplayTickertapeMessage message={enteredText} />) ||
+    (showingFlash && (
+      <DisplayFlashMessage message={messageToDisplay} returnTap={returnTap} />
+    )) ||
+    (showingTickertape && (
+      <DisplayTickertapeMessage
+        message={messageToDisplay}
+        returnTap={returnTap}
+        width={screenWidth}
+        height={screenHeight}
+        length={messageToDisplay.length}
+      />
+    )) ||
     (!showingFlash && !showingTickertape && (
       <>
         <StatusBar style='light' />

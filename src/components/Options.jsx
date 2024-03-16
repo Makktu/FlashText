@@ -8,10 +8,6 @@ export default function Options({
   typePressHandler,
   displayMode,
 }) {
-  // const goHandler = () => {
-  //   console.log('go!');
-  // };
-
   return (
     <View style={styles.container}>
       <View style={styles.goButtonContainer}>
