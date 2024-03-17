@@ -1,16 +1,73 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import React, { useEffect } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Animated,
+  StatusBar,
+} from 'react-native';
+import React, { useState, useEffect, useRef, Component } from 'react';
 
-export default function DisplayFlashMessage({ message, returnTap }) {
-  // ! for debugging
-  useEffect(() => {
-    console.log('flash screen');
-  }, []);
+export default function DisplayFlashMessage({
+  height,
+  width,
+  messageLength,
+  userTime,
+  children,
+  returnTap,
+  message,
+  repeat,
+}) {
+  const FlashView = ({ height, width, messageLength, userTime, children }) => {
+    const animatedValue = useRef(new Animated.Value(0)).current; // initial value for word opacity
+
+    useEffect(() => {
+      StatusBar.setHidden(true);
+    }, []);
+
+    useEffect(() => {
+      Animated.timing(animatedValue, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }).start(({ finished }) => {
+        animationEnded();
+      });
+    }, [animatedValue]);
+
+    const animationEnded = () => {
+      if (nextWord < message.length - 1) {
+        setNextWord(nextWord + 1);
+      } else {
+        if (repeat) {
+          setNextWord(0);
+        }
+      }
+    };
+
+    return (
+      <Animated.View
+        style={{
+          fontSize: 40,
+          opacity: animatedValue,
+          borderColor: 'red',
+          borderWidth: 2,
+        }}
+      >
+        {children}
+      </Animated.View>
+    );
+  };
+
+  const [nextWord, setNextWord] = useState(0);
+  console.log(message[0]);
 
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.touchableArea} onPress={returnTap}>
-        <Text>{message}</Text>
+        <FlashView width={width} height={height} userTime={userTime}>
+          <Text style={styles.text}>{message[nextWord]}</Text>
+        </FlashView>
       </TouchableOpacity>
     </View>
   );
@@ -18,16 +75,13 @@ export default function DisplayFlashMessage({ message, returnTap }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'darkgreen',
+    backgroundColor: '#000000',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   text: {
-    height: '100%',
-  },
-  touchableArea: {
-    height: '100%',
-    width: '100%',
+    fontSize: 80,
+    color: 'white',
   },
 });

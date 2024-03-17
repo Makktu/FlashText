@@ -4,17 +4,20 @@ import {
   View,
   TouchableOpacity,
   Animated,
+  StatusBar,
 } from 'react-native';
 import React, { useEffect, useRef } from 'react';
 
 const TickerView = ({ height, width, messageLength, userTime, children }) => {
-  const animatedValue = useRef(
-    new Animated.Value(messageLength + 1500)
-  ).current; // initial value for position
+  const animatedValue = useRef(new Animated.Value(width + 950)).current; // initial value for position
+
+  useEffect(() => {
+    StatusBar.setHidden(true);
+  }, []);
 
   useEffect(() => {
     Animated.timing(animatedValue, {
-      toValue: -(messageLength + 1300),
+      toValue: -messageLength,
       duration: userTime,
       useNativeDriver: true,
     }).start();
@@ -22,7 +25,12 @@ const TickerView = ({ height, width, messageLength, userTime, children }) => {
 
   return (
     <Animated.View
-      style={{ fontSize: 40, transform: [{ translateX: animatedValue }] }}
+      style={{
+        fontSize: 40,
+        transform: [{ translateX: animatedValue }],
+        borderColor: 'red',
+        borderWidth: 2,
+      }}
     >
       {children}
     </Animated.View>
@@ -37,9 +45,7 @@ export default function DisplayTickertapeMessage({
   length,
   userTime,
 }) {
-  const moveText = () => {
-    console.log('here');
-  };
+  console.log(`Height: ${height}, Width: ${width}`);
 
   return (
     <View style={styles.container}>
@@ -70,11 +76,5 @@ const styles = StyleSheet.create({
     fontSize: 50,
     width: '100%',
     color: 'white',
-    // transform: [{ translateY: 50 }],
   },
-  // touchableArea: {
-  //   flex: 1,
-  //   // height: '100%',
-  //   // width: '100%',
-  // },
 });

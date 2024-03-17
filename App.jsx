@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, View, Dimensions, StatusBar } from 'react-native';
 import Title from './src/gui/Title';
 import Input from './src/components/Input';
 import Options from './src/components/Options';
@@ -14,9 +13,9 @@ export default function App() {
   const [showingFlash, setShowingFlash] = useState(false);
   const [showingTickertape, setShowingTickertape] = useState(false);
   const [userTime, setUserTime] = useState(10000);
+  const [repeat, setRepeat] = useState(false);
 
   // get user screen dimensions
-
   const screenWidth = Dimensions.get('window').width;
   const screenHeight = Dimensions.get('window').height;
 
@@ -28,11 +27,21 @@ export default function App() {
     setEnteredText('');
   };
 
+  const displayTimeHandler = () => {
+    console.log('display time handler');
+  };
+
+  const repeatHandler = () => {
+    setRepeat(!repeat);
+  };
+
   const returnTap = () => {
     // make sure the default screen displays
     // when returning from either of the display screens
     setShowingFlash(false);
     setShowingTickertape(false);
+    // and restore the StatusBar
+    StatusBar.setHidden(false);
   };
 
   const startDisplay = () => {
@@ -70,7 +79,11 @@ export default function App() {
 
   return (
     (showingFlash && (
-      <DisplayFlashMessage message={messageToDisplay} returnTap={returnTap} />
+      <DisplayFlashMessage
+        message={messageToDisplay}
+        returnTap={returnTap}
+        repeat={repeat}
+      />
     )) ||
     (showingTickertape && (
       <DisplayTickertapeMessage
@@ -85,7 +98,6 @@ export default function App() {
     (!showingFlash && !showingTickertape && (
       <>
         <StatusBar style='light' />
-
         <View style={styles.container}>
           <View style={styles.titleContainer}>
             <Title />
@@ -102,6 +114,10 @@ export default function App() {
               startDisplay={startDisplay}
               typePressHandler={typePressHandler}
               displayMode={displayMode}
+              displayTimeHandler={displayTimeHandler}
+              repeatHandler={repeatHandler}
+              displayTime={userTime / 1000}
+              repeat={repeat}
             />
           </View>
         </View>
@@ -115,7 +131,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#040404',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
   },
   textSmall: {
     color: 'orangered',

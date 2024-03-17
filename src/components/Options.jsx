@@ -6,7 +6,11 @@ import React, { useState } from 'react';
 export default function Options({
   startDisplay,
   typePressHandler,
+  displayTimeHandler,
+  repeatHandler,
   displayMode,
+  displayTime,
+  repeat,
 }) {
   return (
     <View style={styles.container}>
@@ -18,10 +22,12 @@ export default function Options({
       <Button mode='contained' onPress={typePressHandler} style={styles.button}>
         Display Mode: {displayMode}
       </Button>
-      <Button style={styles.button}>Options2</Button>
-      <Button color={'black'} style={styles.button}>
-        Options3
+      <Button style={styles.button}>Display Time: {displayTime} seconds</Button>
+      <Button onPress={repeatHandler} color={'black'} style={styles.button}>
+        {repeat ? 'Repeat: YES' : 'Repeat: NO'}
       </Button>
+      <Button style={styles.button}>Options 4</Button>
+      <Button style={styles.button}>Options 5</Button>
     </View>
   );
 }
@@ -35,7 +41,7 @@ const styles = StyleSheet.create({
     theme: {
       colors: { primary: 'white' },
     },
-    margin: 10,
+    margin: 4,
     backgroundColor: '#260707',
     fontSize: 24,
     padding: 6,
@@ -43,9 +49,9 @@ const styles = StyleSheet.create({
     width: 300,
   },
   goButtonContainer: {
-    marginBottom: 20,
+    marginBottom: 8,
   },
   goButton: {
-    height: 90,
+    height: 40,
   },
 });
