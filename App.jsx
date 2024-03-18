@@ -14,6 +14,7 @@ export default function App() {
   const [showingTickertape, setShowingTickertape] = useState(false);
   const [userTime, setUserTime] = useState(10000);
   const [repeat, setRepeat] = useState(false);
+  const [customFontSize, setCustomFontSize] = useState(20);
 
   // get user screen dimensions
   const screenWidth = Dimensions.get('window').width;
@@ -50,7 +51,9 @@ export default function App() {
       console.log('nowt there');
       return;
     }
-    console.log('GO!', displayMode);
+    // let fontCalc = screenWidth / 3;
+    // fontCalc > 100 ? (fontCalc = 100) : null;
+    setCustomFontSize(100);
     if (displayMode == 'Word Flash') {
       setMessageToDisplay(splitMessageForFlash(enteredText));
       console.log(messageToDisplay, typeof messageToDisplay);
@@ -83,6 +86,7 @@ export default function App() {
         message={messageToDisplay}
         returnTap={returnTap}
         repeat={repeat}
+        customFontSize={customFontSize}
       />
     )) ||
     (showingTickertape && (

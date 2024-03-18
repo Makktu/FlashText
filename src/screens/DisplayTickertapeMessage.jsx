@@ -6,10 +6,16 @@ import {
   Animated,
   StatusBar,
 } from 'react-native';
-import React, { useEffect, useRef } from 'react';
+import React, { Component, useEffect, useRef } from 'react';
 
 const TickerView = ({ height, width, messageLength, userTime, children }) => {
-  const animatedValue = useRef(new Animated.Value(width + 950)).current; // initial value for position
+  const animatedValue = useRef(new Animated.Value(0)).current; // initial value for position
+
+  useEffect(() => {
+    animatedValue.addListener((value) => {
+      console.log(value);
+    });
+  }, []);
 
   useEffect(() => {
     StatusBar.setHidden(true);
@@ -17,7 +23,7 @@ const TickerView = ({ height, width, messageLength, userTime, children }) => {
 
   useEffect(() => {
     Animated.timing(animatedValue, {
-      toValue: -messageLength,
+      toValue: -(messageLength + width),
       duration: userTime,
       useNativeDriver: true,
     }).start();
@@ -51,12 +57,15 @@ export default function DisplayTickertapeMessage({
     <View style={styles.container}>
       <TouchableOpacity style={styles.touchableArea} onPress={returnTap}>
         <TickerView
+          style={{ position: 'absolute', right: { width } * 1000 }}
           width={width}
           height={height}
           messageLength={length}
           userTime={userTime}
         >
-          <Text style={styles.text}>{message}</Text>
+          <Text numberOfLines={1} style={styles.text}>
+            {message}
+          </Text>
         </TickerView>
       </TouchableOpacity>
     </View>
@@ -77,4 +86,8 @@ const styles = StyleSheet.create({
     width: '100%',
     color: 'white',
   },
+  // tickerview: {
+  //   position: 'absolute',
+  //   right: width + 10,
+  // },
 });
