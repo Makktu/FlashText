@@ -1,1 +1,9 @@
 https://www.npmjs.com/package/react-native-responsive-fontsize
+
+to pause at full stops and at the end of messages
+
+dynamically assess optimal length of time for scrolling messages
+lot of parsing of messages required
+trim extra spaces
+
+ignore non-alphabet characters in 1.0

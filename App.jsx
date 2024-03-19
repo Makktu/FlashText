@@ -16,19 +16,32 @@ export default function App() {
   const [userTime, setUserTime] = useState(10000);
   const [repeat, setRepeat] = useState(false);
   const [customFontSize, setCustomFontSize] = useState(20);
+  const [orientationIsPortrait, setOrientationIsPortrait] = useState(true);
 
   // get user screen dimensions
   const screenWidth = Dimensions.get('window').width;
   const screenHeight = Dimensions.get('window').height;
 
-  useEffect(() => {
-    lockOrientation();
-  }, []);
+  // useEffect(() => {
+  //   toggleOrientation();
+  // }, [orientationIsPortrait]);
 
-  const lockOrientation = async () => {
-    await ScreenOrientation.OrientationLock.PORTRAIT;
-    const o = await ScreenOrientation.getOrientationAsync();
-    setOrientation(o);
+  async function changeScreenOrientation() {
+    if (orientationIsPortrait) {
+      console.log('uh landscape?');
+      ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
+      );
+    } else if (!orientationIsPortrait) {
+      console.log('uh portrait?');
+      ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.PORTRAIT_UP
+      );
+    }
+  }
+  const toggleOrientation = () => {
+    setOrientationIsPortrait(!orientationIsPortrait);
+    changeScreenOrientation();
   };
 
   const inputHandler = (enteredText) => {
@@ -48,10 +61,11 @@ export default function App() {
   };
 
   const returnTap = () => {
-    // make sure the default screen displays
-    // when returning from either of the display screens
+    // default screen displays when returning from display screens
     setShowingFlash(false);
     setShowingTickertape(false);
+    // and return to portrait orientation
+    toggleOrientation();
     // and restore the StatusBar
     StatusBar.setHidden(false);
   };
@@ -76,6 +90,7 @@ export default function App() {
       setShowingFlash(false);
       setShowingTickertape(true);
     }
+    toggleOrientation();
     // if mode is set to Flash, need to break it up into words
     // otherwise, just proceed with scrolling tickertape displa
   };
@@ -89,6 +104,10 @@ export default function App() {
       ? setDisplayMode('Scrolling Tickertape')
       : setDisplayMode('Word Flash');
     console.log('Display Mode set to', displayMode);
+  };
+
+  const toggleUserOrientation = () => {
+    console.log('workingggg');
   };
 
   return (
@@ -133,6 +152,8 @@ export default function App() {
               repeatHandler={repeatHandler}
               displayTime={userTime / 1000}
               repeat={repeat}
+              orientIn={orientationIsPortrait}
+              toggleUserOrientation={toggleUserOrientation}
             />
           </View>
         </View>

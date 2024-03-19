@@ -11,6 +11,8 @@ export default function Options({
   displayMode,
   displayTime,
   repeat,
+  orientIn,
+  toggleUserOrientation,
 }) {
   return (
     <View style={styles.container}>
@@ -26,8 +28,11 @@ export default function Options({
       <Button onPress={repeatHandler} color={'black'} style={styles.button}>
         {repeat ? 'Repeat: YES' : 'Repeat: NO'}
       </Button>
-      <Button style={styles.button}>Options 4</Button>
-      <Button style={styles.button}>Options 5</Button>
+      <Button onPress={toggleUserOrientation} style={styles.button}>
+        Showing in {orientIn ? 'LANDSCAPE' : 'PORTRAIT'}
+      </Button>
+      <Button style={styles.button}>Sounds OFF</Button>
+      <Button style={styles.button}>Border colors ON</Button>
     </View>
   );
 }
