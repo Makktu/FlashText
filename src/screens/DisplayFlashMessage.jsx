@@ -7,6 +7,7 @@ import {
   StatusBar,
 } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
+import * as ScreenOrientation from 'expo-screen-orientation';
 
 export default function DisplayFlashMessage({
   height,
@@ -21,6 +22,18 @@ export default function DisplayFlashMessage({
 }) {
   const FlashView = ({ height, width, messageLength, userTime, children }) => {
     const animatedValue = useRef(new Animated.Value(0)).current; // initial value for word opacity
+
+    useEffect(() => {
+      lockOrientation();
+    }, []);
+
+    const lockOrientation = async () => {
+      await ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
+      );
+      const o = await ScreenOrientation.getOrientationAsync();
+      setOrientation(o);
+    };
 
     useEffect(() => {
       StatusBar.setHidden(true);
@@ -92,6 +105,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'orangered',
+    fontSize: 90,
   },
   greatContainer: {
     width: '100%',

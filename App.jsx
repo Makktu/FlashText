@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, View, Dimensions, StatusBar } from 'react-native';
+import * as ScreenOrientation from 'expo-screen-orientation';
 import Title from './src/gui/Title';
 import Input from './src/components/Input';
 import Options from './src/components/Options';
@@ -19,6 +20,16 @@ export default function App() {
   // get user screen dimensions
   const screenWidth = Dimensions.get('window').width;
   const screenHeight = Dimensions.get('window').height;
+
+  useEffect(() => {
+    lockOrientation();
+  }, []);
+
+  const lockOrientation = async () => {
+    await ScreenOrientation.OrientationLock.PORTRAIT;
+    const o = await ScreenOrientation.getOrientationAsync();
+    setOrientation(o);
+  };
 
   const inputHandler = (enteredText) => {
     setEnteredText(enteredText);
