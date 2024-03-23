@@ -7,3 +7,5 @@ lot of parsing of messages required
 trim extra spaces
 
 ignore non-alphabet characters in 1.0
+
+make tickertape screen position start of text just off-screen and scroll, ease in, scroll at a consistent speed, ease out, etc.

@@ -24,7 +24,9 @@ export default function Options({
       <Button mode='contained' onPress={typePressHandler} style={styles.button}>
         Display Mode: {displayMode}
       </Button>
-      <Button style={styles.button}>Display Time: {displayTime} seconds</Button>
+      <Button onPress={displayTimeHandler} style={styles.button}>
+        Display Time: {displayTime} seconds
+      </Button>
       <Button onPress={repeatHandler} color={'black'} style={styles.button}>
         {repeat ? 'Repeat: YES' : 'Repeat: NO'}
       </Button>

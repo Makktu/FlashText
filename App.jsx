@@ -13,7 +13,7 @@ export default function App() {
   const [messageToDisplay, setMessageToDisplay] = useState();
   const [showingFlash, setShowingFlash] = useState(false);
   const [showingTickertape, setShowingTickertape] = useState(false);
-  const [userTime, setUserTime] = useState(10000);
+  const [userTime, setUserTime] = useState(10);
   const [repeat, setRepeat] = useState(false);
   const [customFontSize, setCustomFontSize] = useState(20);
   const [orientationIsPortrait, setOrientationIsPortrait] = useState(true);
@@ -21,10 +21,6 @@ export default function App() {
   // get user screen dimensions
   const screenWidth = Dimensions.get('window').width;
   const screenHeight = Dimensions.get('window').height;
-
-  // useEffect(() => {
-  //   toggleOrientation();
-  // }, [orientationIsPortrait]);
 
   async function changeScreenOrientation() {
     if (orientationIsPortrait) {
@@ -117,6 +113,8 @@ export default function App() {
         returnTap={returnTap}
         repeat={repeat}
         customFontSize={customFontSize}
+        userTime={userTime * 1000}
+        width={screenWidth}
       />
     )) ||
     (showingTickertape && (
@@ -126,7 +124,7 @@ export default function App() {
         width={screenWidth}
         height={screenHeight}
         length={messageToDisplay.length}
-        userTime={userTime}
+        userTime={userTime * 1000}
       />
     )) ||
     (!showingFlash && !showingTickertape && (
@@ -150,7 +148,7 @@ export default function App() {
               displayMode={displayMode}
               displayTimeHandler={displayTimeHandler}
               repeatHandler={repeatHandler}
-              displayTime={userTime / 1000}
+              displayTime={userTime}
               repeat={repeat}
               orientIn={orientationIsPortrait}
               toggleUserOrientation={toggleUserOrientation}

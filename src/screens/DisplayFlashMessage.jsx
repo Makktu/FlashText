@@ -7,7 +7,6 @@ import {
   StatusBar,
 } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
-import * as ScreenOrientation from 'expo-screen-orientation';
 
 export default function DisplayFlashMessage({
   height,
@@ -20,16 +19,14 @@ export default function DisplayFlashMessage({
   repeat,
   customFontSize,
 }) {
-  const FlashView = ({ height, width, messageLength, userTime, children }) => {
+  const styles = makeStyles();
+  //disable statusbar in message display
+  useEffect(() => {
+    StatusBar.setHidden(true);
+  }, []);
+
+  const FlashView = ({ children }) => {
     const animatedValue = useRef(new Animated.Value(0)).current; // initial value for word opacity
-
-    // useEffect(() => {
-    //   lockOrientation();
-    // }, []);
-
-    useEffect(() => {
-      StatusBar.setHidden(true);
-    }, []);
 
     useEffect(() => {
       Animated.timing(animatedValue, {
@@ -70,12 +67,17 @@ export default function DisplayFlashMessage({
 
   const [nextWord, setNextWord] = useState(0);
   console.log(message[0]);
+  console.log('>>', width);
 
   return (
     <>
       <TouchableOpacity style={styles.container} onPress={returnTap}>
-        <FlashView>
-          <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
+        <FlashView
+        // adjustsFontSizeToFit
+        // numberOfLines={1}
+        // style={{ alignItems: 'center', justifyContent: 'center' }}
+        >
+          <Text numberOfLines={1} adjustsFontSizeToFit style={styles.text}>
             {message[nextWord]}
           </Text>
         </FlashView>
@@ -84,22 +86,24 @@ export default function DisplayFlashMessage({
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#000000',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    height: '100%',
-    borderColor: 'red',
-    borderWidth: 2,
-  },
-  text: {
-    color: 'orangered',
-    fontSize: 160,
-  },
-  greatContainer: {
-    width: '100%',
-  },
-});
+const makeStyles = () =>
+  StyleSheet.create({
+    container: {
+      backgroundColor: '#000000',
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100%',
+      height: '100%',
+      borderColor: 'red',
+      borderWidth: 2,
+    },
+    text: {
+      color: 'orangered',
+      // height: '100%',
+      // width: '100%',
+      borderColor: '#09b9f4',
+      borderWidth: 2,
+      fontSize: 50,
+    },
+  });
