@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Animated,
   StatusBar,
+  useWindowDimensions,
 } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
 
@@ -19,7 +20,11 @@ export default function DisplayFlashMessage({
   repeat,
   customFontSize,
 }) {
-  const styles = makeStyles();
+  // const { fontScale } = useWindowDimensions();
+  // console.log('====', fontScale);
+  // need to calculate the device screen's ideal fontsize PER WORD
+  const styles = makeStyles(width / 2);
+
   //disable statusbar in message display
   useEffect(() => {
     StatusBar.setHidden(true);
@@ -72,11 +77,7 @@ export default function DisplayFlashMessage({
   return (
     <>
       <TouchableOpacity style={styles.container} onPress={returnTap}>
-        <FlashView
-        // adjustsFontSizeToFit
-        // numberOfLines={1}
-        // style={{ alignItems: 'center', justifyContent: 'center' }}
-        >
+        <FlashView>
           <Text numberOfLines={1} adjustsFontSizeToFit style={styles.text}>
             {message[nextWord]}
           </Text>
@@ -86,7 +87,7 @@ export default function DisplayFlashMessage({
   );
 }
 
-const makeStyles = () =>
+const makeStyles = (customFontSize) =>
   StyleSheet.create({
     container: {
       backgroundColor: '#000000',
@@ -102,8 +103,8 @@ const makeStyles = () =>
       color: 'orangered',
       // height: '100%',
       // width: '100%',
-      borderColor: '#09b9f4',
-      borderWidth: 2,
-      fontSize: 50,
+      // borderColor: '#09b9f4',
+      // borderWidth: 2,
+      fontSize: customFontSize,
     },
   });
