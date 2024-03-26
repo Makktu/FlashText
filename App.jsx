@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { StyleSheet, View, Dimensions, StatusBar } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import Title from './src/gui/Title';
@@ -13,23 +13,19 @@ export default function App() {
   const [messageToDisplay, setMessageToDisplay] = useState();
   const [showingFlash, setShowingFlash] = useState(false);
   const [showingTickertape, setShowingTickertape] = useState(false);
-  const [userTime, setUserTime] = useState(10);
-  const [repeat, setRepeat] = useState(false);
-  const [customFontSize, setCustomFontSize] = useState(20);
+  const [userTime, setUserTime] = useState(1);
+  const [repeat, setRepeat] = useState(true);
+  const [customFontSize, setCustomFontSize] = useState(130);
   const [orientationIsPortrait, setOrientationIsPortrait] = useState(true);
 
-  // get user screen dimensions
-  const screenWidth = Dimensions.get('window').width;
-  const screenHeight = Dimensions.get('window').height;
+  let screenWidth, screenHeight;
 
   async function changeScreenOrientation() {
     if (orientationIsPortrait) {
-      console.log('uh landscape?');
       ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
       );
     } else if (!orientationIsPortrait) {
-      console.log('uh portrait?');
       ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.PORTRAIT_UP
       );
@@ -67,22 +63,22 @@ export default function App() {
   };
 
   const startDisplay = () => {
-    // return if nothing entered
     if (!enteredText) {
       console.log('nowt there');
       return;
     }
-    // let fontCalc = screenWidth / 3;
-    // fontCalc > 100 ? (fontCalc = 100) : null;
-    setCustomFontSize(100);
+    // debug info
+    // get user screen dimensions
+    screenWidth = Dimensions.get('window').width;
+    screenHeight = Dimensions.get('window').height;
+    console.log(`User Screen: ${screenWidth} WIDTH / ${screenHeight} HEIGHT`);
+
     if (displayMode == 'Word Flash') {
       setMessageToDisplay(splitMessageForFlash(enteredText));
-      console.log(messageToDisplay, typeof messageToDisplay);
       setShowingTickertape(false);
       setShowingFlash(true);
     } else {
       setMessageToDisplay(enteredText);
-      console.log(messageToDisplay, typeof messageToDisplay);
       setShowingFlash(false);
       setShowingTickertape(true);
     }
@@ -99,7 +95,6 @@ export default function App() {
     displayMode == 'Word Flash'
       ? setDisplayMode('Scrolling Tickertape')
       : setDisplayMode('Word Flash');
-    console.log('Display Mode set to', displayMode);
   };
 
   const toggleUserOrientation = () => {
@@ -115,6 +110,7 @@ export default function App() {
         customFontSize={customFontSize}
         userTime={userTime * 1000}
         width={screenWidth}
+        height={screenHeight}
       />
     )) ||
     (showingTickertape && (

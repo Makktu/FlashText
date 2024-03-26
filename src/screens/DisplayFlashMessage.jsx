@@ -8,6 +8,11 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
+// import {
+//   responsiveScreenHeight,
+//   responsiveScreenWidth,
+//   responsiveScreenFontSize,
+// } from 'react-native-responsive-dimensions';
 
 export default function DisplayFlashMessage({
   height,
@@ -18,25 +23,22 @@ export default function DisplayFlashMessage({
   returnTap,
   message,
   repeat,
-  customFontSize,
 }) {
-  // const { fontScale } = useWindowDimensions();
-  // console.log('====', fontScale);
-  // need to calculate the device screen's ideal fontsize PER WORD
-  const styles = makeStyles(width / 2);
-
   //disable statusbar in message display
   useEffect(() => {
     StatusBar.setHidden(true);
   }, []);
 
+  const wordDuration = userTime;
+
   const FlashView = ({ children }) => {
     const animatedValue = useRef(new Animated.Value(0)).current; // initial value for word opacity
+    const customFontSize = width / 15;
 
     useEffect(() => {
       Animated.timing(animatedValue, {
         toValue: 1,
-        duration: 500,
+        duration: wordDuration,
         useNativeDriver: true,
       }).start(({ finished }) => {
         animationEnded();
@@ -71,14 +73,12 @@ export default function DisplayFlashMessage({
   };
 
   const [nextWord, setNextWord] = useState(0);
-  console.log(message[0]);
-  console.log('>>', width);
 
   return (
     <>
       <TouchableOpacity style={styles.container} onPress={returnTap}>
         <FlashView>
-          <Text numberOfLines={1} adjustsFontSizeToFit style={styles.text}>
+          <Text style={{ color: 'orangered', fontSize: 150 }}>
             {message[nextWord]}
           </Text>
         </FlashView>
@@ -87,24 +87,23 @@ export default function DisplayFlashMessage({
   );
 }
 
-const makeStyles = (customFontSize) =>
-  StyleSheet.create({
-    container: {
-      backgroundColor: '#000000',
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: '100%',
-      height: '100%',
-      borderColor: 'red',
-      borderWidth: 2,
-    },
-    text: {
-      color: 'orangered',
-      // height: '100%',
-      // width: '100%',
-      // borderColor: '#09b9f4',
-      // borderWidth: 2,
-      fontSize: customFontSize,
-    },
-  });
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#000000',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+    borderColor: 'red',
+    borderWidth: 2,
+  },
+  text: {
+    color: 'orangered',
+    // height: '100%',
+    // width: '100%',
+    // borderColor: '#09b9f4',
+    // borderWidth: 2,
+    // fontSize: responsiveScreenFontSize(30),
+  },
+});
