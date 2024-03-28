@@ -5,14 +5,8 @@ import {
   TouchableOpacity,
   Animated,
   StatusBar,
-  useWindowDimensions,
 } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
-// import {
-//   responsiveScreenHeight,
-//   responsiveScreenWidth,
-//   responsiveScreenFontSize,
-// } from 'react-native-responsive-dimensions';
 
 export default function DisplayFlashMessage({
   height,
@@ -75,15 +69,19 @@ export default function DisplayFlashMessage({
   const [nextWord, setNextWord] = useState(0);
 
   return (
-    <>
-      <TouchableOpacity style={styles.container} onPress={returnTap}>
+    <View style={styles.container}>
+      <TouchableOpacity onPress={returnTap}>
         <FlashView>
-          <Text style={{ color: 'orangered', fontSize: 150 }}>
+          <Text
+            adjustsFontSizeToFit={true}
+            numberOfLines={1}
+            style={[styles.text]}
+          >
             {message[nextWord]}
           </Text>
         </FlashView>
       </TouchableOpacity>
-    </>
+    </View>
   );
 }
 

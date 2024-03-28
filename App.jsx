@@ -13,12 +13,13 @@ export default function App() {
   const [messageToDisplay, setMessageToDisplay] = useState();
   const [showingFlash, setShowingFlash] = useState(false);
   const [showingTickertape, setShowingTickertape] = useState(false);
-  const [userTime, setUserTime] = useState(1);
+  const [userTime, setUserTime] = useState(0.75);
   const [repeat, setRepeat] = useState(true);
   const [customFontSize, setCustomFontSize] = useState(130);
   const [orientationIsPortrait, setOrientationIsPortrait] = useState(true);
 
   let screenWidth, screenHeight;
+  const displayTimeAmounts = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
 
   async function changeScreenOrientation() {
     if (orientationIsPortrait) {
@@ -45,7 +46,16 @@ export default function App() {
   };
 
   const displayTimeHandler = () => {
-    console.log('display time handler');
+    // displayTime will cycle through the array
+    displayTimeAmounts.forEach((amount, index) => {
+      if (amount == userTime) {
+        if (index == displayTimeAmounts.length - 1) {
+          setUserTime(displayTimeAmounts[0]);
+        } else {
+          setUserTime(displayTimeAmounts[index + 1]);
+        }
+      }
+    });
   };
 
   const repeatHandler = () => {

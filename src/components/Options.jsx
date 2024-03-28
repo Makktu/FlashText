@@ -25,7 +25,8 @@ export default function Options({
         Display Mode: {displayMode}
       </Button>
       <Button onPress={displayTimeHandler} style={styles.button}>
-        Display Time: {displayTime} seconds
+        Word Display Time: {displayTime}{' '}
+        {displayTime == 1 ? 'second' : 'seconds'}
       </Button>
       <Button onPress={repeatHandler} color={'black'} style={styles.button}>
         {repeat ? 'Repeat: YES' : 'Repeat: NO'}
