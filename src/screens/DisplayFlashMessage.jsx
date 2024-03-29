@@ -53,8 +53,8 @@ export default function DisplayFlashMessage({
       <Animated.View
         style={{
           opacity: animatedValue,
-          borderColor: '#aaff00',
-          borderWidth: 2,
+          // borderColor: '#aaff00',
+          // borderWidth: 2,
           height: '100%',
           width: '100%',
           alignItems: 'center',
@@ -97,11 +97,11 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   text: {
-    color: 'orangered',
+    color: '#0f0e0e',
     // height: '100%',
     // width: '100%',
     // borderColor: '#09b9f4',
     // borderWidth: 2,
-    // fontSize: responsiveScreenFontSize(30),
+    fontSize: 160,
   },
 });
