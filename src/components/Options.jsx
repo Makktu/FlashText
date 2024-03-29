@@ -10,6 +10,7 @@ export default function Options({
   repeatHandler,
   displayMode,
   displayTime,
+  tickerTime,
   repeat,
   orientIn,
   toggleUserOrientation,
@@ -25,8 +26,15 @@ export default function Options({
         Display Mode: {displayMode}
       </Button>
       <Button onPress={displayTimeHandler} style={styles.button}>
-        Word Display Time: {displayTime}{' '}
-        {displayTime == 1 ? 'second' : 'seconds'}
+        {displayMode == 'Word Flash'
+          ? 'Word Display Time:'
+          : 'Tickertape speed:'}
+        {displayMode == 'Word Flash' ? displayTime : null}
+        {displayMode == 'Word Flash'
+          ? displayTime == 1
+            ? 'second'
+            : 'seconds'
+          : tickerPace}
       </Button>
       <Button onPress={repeatHandler} color={'black'} style={styles.button}>
         {repeat ? 'Repeat: YES' : 'Repeat: NO'}
