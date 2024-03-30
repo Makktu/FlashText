@@ -83,11 +83,12 @@ export default function App() {
       console.log('nowt there');
       return;
     }
-    // debug info
-    // get user screen dimensions
+    // ________________________________ debug info
+    // _________________________________get user screen dimensions
     screenWidth = Dimensions.get('window').width;
     screenHeight = Dimensions.get('window').height;
     console.log(`User Screen: ${screenWidth} WIDTH / ${screenHeight} HEIGHT`);
+    // _______________________________________________________________
 
     if (displayMode == 'Word Flash') {
       setMessageToDisplay(splitMessageForFlash(enteredText));
@@ -156,6 +157,7 @@ export default function App() {
           <View style={styles.optionsContainer}>
             <Options
               startDisplay={startDisplay}
+              tickerPace={tickerTime}
               typePressHandler={typePressHandler}
               displayMode={displayMode}
               displayTimeHandler={displayTimeHandler}

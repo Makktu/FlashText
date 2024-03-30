@@ -11,6 +11,7 @@ export default function Options({
   displayMode,
   displayTime,
   tickerTime,
+  tickerPace,
   repeat,
   orientIn,
   toggleUserOrientation,

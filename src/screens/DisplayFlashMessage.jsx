@@ -97,11 +97,11 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   text: {
-    color: '#0f0e0e',
+    color: 'orangered',
     // height: '100%',
     // width: '100%',
     // borderColor: '#09b9f4',
     // borderWidth: 2,
-    fontSize: 160,
+    fontSize: 260,
   },
 });

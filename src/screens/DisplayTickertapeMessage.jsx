@@ -8,13 +8,7 @@ import {
 import React, { useEffect, useRef } from 'react';
 
 const TickerView = ({ height, width, messageLength, userTime, children }) => {
-  const animatedValue = useRef(new Animated.Value(width + 10)).current; // initial value for position
-
-  // useEffect(() => {
-  //   animatedValue.addListener((value) => {
-  //     console.log(value);
-  //   });
-  // }, []);
+  const animatedValue = useRef(new Animated.Value(600)).current; // initial value for position
 
   useEffect(() => {
     StatusBar.setHidden(true);
@@ -22,8 +16,8 @@ const TickerView = ({ height, width, messageLength, userTime, children }) => {
 
   useEffect(() => {
     Animated.timing(animatedValue, {
-      toValue: -(messageLength + width),
-      duration: userTime,
+      toValue: -3000, // value hardcoded for now - to change dynamically based on user input
+      duration: 3000, // back to userTime when bugs worked out
       useNativeDriver: true,
     }).start();
   }, [animatedValue]);
@@ -52,24 +46,19 @@ export default function DisplayTickertapeMessage({
   userTime,
 }) {
   console.log(`Height: ${height}, Width: ${width}`);
+  console.log(message);
 
   return (
     <>
       <TouchableOpacity style={styles.container} onPress={returnTap}>
         <TickerView
-          style={{ height: '100%', width: '100%' }}
-          width={width}
-          height={height}
+          // style={{ height: '100%', width: '100%' }}
+          // width={width}
+          // height={height}
           messageLength={length}
           userTime={userTime}
         >
-          <Text
-            adjustsFontSizeToFit={true}
-            numberOfLines={1}
-            style={styles.text}
-          >
-            {message}
-          </Text>
+          <Text style={styles.text}>{message}</Text>
         </TickerView>
       </TouchableOpacity>
     </>
@@ -88,8 +77,9 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   text: {
-    fontSize: 50,
-    width: '100%',
-    color: 'white',
+    fontSize: 150,
+    color: 'orangered',
+    borderColor: 'yellow',
+    borderWidth: 2,
   },
 });
