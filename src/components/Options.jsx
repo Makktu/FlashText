@@ -23,9 +23,9 @@ export default function Options({
           GO!
         </Button>
       </View>
-      <Button mode='contained' onPress={typePressHandler} style={styles.button}>
+      {/* <Button mode='contained' onPress={typePressHandler} style={styles.button}>
         Display Mode: {displayMode}
-      </Button>
+      </Button> */}
       <Button onPress={displayTimeHandler} style={styles.button}>
         {displayMode == 'Word Flash'
           ? 'Word Display Time:'
