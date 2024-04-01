@@ -87,15 +87,7 @@ export default function DisplayFlashMessage({
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: '#000000',
-    // flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    // width: '100%',
-    // height: '100%',
-    // borderColor: 'red',
-    // borderWidth: 2,
-    backgroundColor: '#29bfec',
+    backgroundColor: '#000000',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -105,7 +97,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   text: {
-    color: '#f50847',
+    color: 'orangered',
     // height: '100%',
     // width: '100%',
     // borderColor: '#09b9f4',
