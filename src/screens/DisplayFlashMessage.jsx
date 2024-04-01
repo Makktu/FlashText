@@ -11,9 +11,7 @@ import React, { useState, useEffect, useRef } from 'react';
 export default function DisplayFlashMessage({
   height,
   width,
-  messageLength,
   userTime,
-  children,
   returnTap,
   message,
   repeat,

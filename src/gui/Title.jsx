@@ -4,7 +4,8 @@ import React from 'react';
 export default function Title() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>The Flasher</Text>
+      <Text style={styles.text}>Flash Messenger</Text>
+      <Text>prototype v.a12</Text>
     </View>
   );
 }
@@ -12,17 +13,16 @@ export default function Title() {
 const styles = StyleSheet.create({
   container: {
     height: 100,
-    width: 300,
+    width: '100%',
     backgroundColor: 'cyan',
     borderRadius: 16,
-    // marginBottom: 5,
+    padding: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    // flex: 1 – worth looking at design
   },
   text: {
     color: 'black',
-    fontSize: 50,
+    fontSize: 30,
     fontWeight: 'bold',
   },
 });

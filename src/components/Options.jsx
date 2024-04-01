@@ -1,17 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { Button, Icon } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function Options({
   startDisplay,
-  typePressHandler,
   displayTimeHandler,
   repeatHandler,
   displayMode,
   displayTime,
-  tickerTime,
-  tickerPace,
   repeat,
   orientIn,
   toggleUserOrientation,
@@ -23,19 +20,14 @@ export default function Options({
           GO!
         </Button>
       </View>
-      {/* <Button mode='contained' onPress={typePressHandler} style={styles.button}>
-        Display Mode: {displayMode}
-      </Button> */}
+      <View style={styles.infoContainer}>
+        <Text style={styles.infoText}>Tap Buttons to Change Options</Text>
+      </View>
       <Button onPress={displayTimeHandler} style={styles.button}>
         {displayMode == 'Word Flash'
-          ? 'Word Display Time:'
+          ? 'Display per word: '
           : 'Tickertape speed:'}
-        {displayMode == 'Word Flash' ? displayTime : null}
-        {displayMode == 'Word Flash'
-          ? displayTime == 1
-            ? 'second'
-            : 'seconds'
-          : tickerPace}
+        {displayMode == 'Word Flash' ? displayTime : null}s
       </Button>
       <Button onPress={repeatHandler} color={'black'} style={styles.button}>
         {repeat ? 'Repeat: YES' : 'Repeat: NO'}
@@ -70,5 +62,11 @@ const styles = StyleSheet.create({
   },
   goButton: {
     height: 40,
+  },
+  infoContainer: {
+    alignItems: 'center',
+  },
+  infoText: {
+    color: 'red',
   },
 });

@@ -5,39 +5,35 @@ import Title from './src/gui/Title';
 import Input from './src/components/Input';
 import Options from './src/components/Options';
 import DisplayFlashMessage from './src/screens/DisplayFlashMessage';
-import DisplayTickertapeMessage from './src/screens/DisplayTickertapeMessage';
 
 export default function App() {
   const [enteredText, setEnteredText] = useState('');
   const [displayMode, setDisplayMode] = useState('Word Flash');
   const [messageToDisplay, setMessageToDisplay] = useState();
   const [showingFlash, setShowingFlash] = useState(false);
-  const [showingTickertape, setShowingTickertape] = useState(false);
   const [userTime, setUserTime] = useState(0.75);
-  const [tickerTime, setTickerTime] = useState('SLOW');
   const [repeat, setRepeat] = useState(true);
   const [customFontSize, setCustomFontSize] = useState(130);
-  const [orientationIsPortrait, setOrientationIsPortrait] = useState(true);
+  const [orientLandscape, setOrientLandscape] = useState(true);
+
+  let viewIsLandscape = false;
 
   let screenWidth, screenHeight;
   const displayTimeAmounts = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
-  let tickerSpeeds = ['Very Slow', 'Slow', 'Fast', 'Very Fast'];
 
   async function changeScreenOrientation() {
-    if (orientationIsPortrait) {
+    if (orientLandscape) {
       ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
       );
-    } else if (!orientationIsPortrait) {
+      viewIsLandscape = true;
+    } else {
       ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.PORTRAIT_UP
       );
+      viewIsLandscape = false;
     }
   }
-  const toggleOrientation = () => {
-    setOrientationIsPortrait(!orientationIsPortrait);
-    changeScreenOrientation();
-  };
 
   const inputHandler = (enteredText) => {
     setEnteredText(enteredText);
@@ -49,7 +45,7 @@ export default function App() {
 
   const displayTimeHandler = () => {
     // displayTime will cycle through the array
-    if (displayTime == 'Word Flash') {
+    if (displayMode == 'Word Flash') {
       displayTimeAmounts.forEach((amount, index) => {
         if (amount == userTime) {
           if (index == displayTimeAmounts.length - 1) {
@@ -71,9 +67,9 @@ export default function App() {
   const returnTap = () => {
     // default screen displays when returning from display screens
     setShowingFlash(false);
-    setShowingTickertape(false);
-    // and return to portrait orientation
-    toggleOrientation();
+    // always return to portrait orientation if on landscape
+    viewIsLandscape = false;
+    changeScreenOrientation();
     // and restore the StatusBar
     StatusBar.setHidden(false);
   };
@@ -89,33 +85,22 @@ export default function App() {
     screenHeight = Dimensions.get('window').height;
     console.log(`User Screen: ${screenWidth} WIDTH / ${screenHeight} HEIGHT`);
     // _______________________________________________________________
-
-    if (displayMode == 'Word Flash') {
-      setMessageToDisplay(splitMessageForFlash(enteredText));
-      setShowingTickertape(false);
-      setShowingFlash(true);
+    setMessageToDisplay(splitMessageForFlash(enteredText));
+    setShowingFlash(true);
+    if (orientLandscape) {
+      viewIsLandscape = true;
     } else {
-      setMessageToDisplay(enteredText);
-      setShowingFlash(false);
-      setShowingTickertape(true);
+      viewIsLandscape = false;
     }
-    toggleOrientation();
-    // if mode is set to Flash, need to break it up into words
-    // otherwise, just proceed with scrolling tickertape displa
+    changeScreenOrientation();
   };
 
   const splitMessageForFlash = (message) => {
     return message.split(' ');
   };
 
-  const typePressHandler = () => {
-    displayMode == 'Word Flash'
-      ? setDisplayMode('Scrolling Tickertape')
-      : setDisplayMode('Word Flash');
-  };
-
   const toggleUserOrientation = () => {
-    console.log('workingggg');
+    setOrientLandscape(!orientLandscape);
   };
 
   return (
@@ -130,17 +115,7 @@ export default function App() {
         height={screenHeight}
       />
     )) ||
-    (showingTickertape && (
-      <DisplayTickertapeMessage
-        message={messageToDisplay}
-        returnTap={returnTap}
-        width={screenWidth}
-        height={screenHeight}
-        length={messageToDisplay.length}
-        userTime={userTime * 1000}
-      />
-    )) ||
-    (!showingFlash && !showingTickertape && (
+    (!showingFlash && (
       <>
         <StatusBar style='light' />
         <View style={styles.container}>
@@ -157,14 +132,12 @@ export default function App() {
           <View style={styles.optionsContainer}>
             <Options
               startDisplay={startDisplay}
-              tickerPace={tickerTime}
-              typePressHandler={typePressHandler}
               displayMode={displayMode}
               displayTimeHandler={displayTimeHandler}
               repeatHandler={repeatHandler}
               displayTime={userTime}
               repeat={repeat}
-              orientIn={orientationIsPortrait}
+              orientIn={orientLandscape}
               toggleUserOrientation={toggleUserOrientation}
             />
           </View>
