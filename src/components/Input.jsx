@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
   },
   input: {
-    height: 60,
+    height: 100,
     width: 300,
     borderRadius: 20,
     backgroundColor: '#073044',

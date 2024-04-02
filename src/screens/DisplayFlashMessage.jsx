@@ -7,6 +7,7 @@ import {
   StatusBar,
 } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
+import { Audio } from 'expo-av';
 
 export default function DisplayFlashMessage({
   height,
@@ -15,13 +16,24 @@ export default function DisplayFlashMessage({
   returnTap,
   message,
   repeat,
+  soundsOn,
 }) {
   //disable statusbar in message display
   useEffect(() => {
     StatusBar.setHidden(true);
+    if (soundsOn) playSound();
   }, []);
 
   const wordDuration = userTime;
+
+  const [sound, setSound] = useState();
+  async function playSound() {
+    const { sound } = await Audio.Sound.createAsync(
+      require('./../../assets/sfx/flashbeep.wav')
+    );
+    setSound(sound);
+    await sound.playAsync();
+  }
 
   const FlashView = ({ children }) => {
     const animatedValue = useRef(new Animated.Value(0)).current; // initial value for word opacity
@@ -34,6 +46,7 @@ export default function DisplayFlashMessage({
         useNativeDriver: true,
       }).start(({ finished }) => {
         animationEnded();
+        if (finished && soundsOn) playSound();
       });
     }, [animatedValue]);
 
@@ -91,8 +104,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     height: '100%',
-    borderColor: 'red',
-    borderWidth: 2,
+    // borderColor: 'red',
+    // borderWidth: 2,
   },
   text: {
     color: 'orangered',

@@ -12,6 +12,9 @@ export default function Options({
   repeat,
   orientIn,
   toggleUserOrientation,
+  toggleSounds,
+  soundsOn,
+  toggleColors,
 }) {
   return (
     <View style={styles.container}>
@@ -24,19 +27,21 @@ export default function Options({
         <Text style={styles.infoText}>Tap Buttons to Change Options</Text>
       </View>
       <Button onPress={displayTimeHandler} style={styles.button}>
-        {displayMode == 'Word Flash'
-          ? 'Display per word: '
-          : 'Tickertape speed:'}
-        {displayMode == 'Word Flash' ? displayTime : null}s
+        Time per word: {displayTime}s
       </Button>
       <Button onPress={repeatHandler} color={'black'} style={styles.button}>
-        {repeat ? 'Repeat: YES' : 'Repeat: NO'}
+        {repeat ? 'Message Repeat: YES' : 'Message Repeat: NO'}
       </Button>
       <Button onPress={toggleUserOrientation} style={styles.button}>
-        Showing in {orientIn ? 'LANDSCAPE' : 'PORTRAIT'}
+        Display: {orientIn ? 'LANDSCAPE' : 'PORTRAIT'}
       </Button>
-      <Button style={styles.button}>Sounds OFF</Button>
-      <Button style={styles.button}>Border colors ON</Button>
+      <Button onPress={toggleSounds} style={styles.button}>
+        Sounds: {soundsOn ? 'ON' : 'OFF'}
+      </Button>
+      <Button onPress={toggleColors} style={styles.button}>
+        Border colors ON
+      </Button>
+      <Button style={styles.button}>Privacy & About</Button>
     </View>
   );
 }
@@ -48,10 +53,10 @@ const styles = StyleSheet.create({
   },
   button: {
     theme: {
-      colors: { primary: 'white' },
+      colors: { primary: '#f4efef' },
     },
     margin: 4,
-    backgroundColor: '#260707',
+    backgroundColor: '#e1e6f4',
     fontSize: 24,
     padding: 6,
     height: 60,

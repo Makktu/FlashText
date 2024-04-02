@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, View, Dimensions, StatusBar } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import Title from './src/gui/Title';
@@ -15,23 +15,27 @@ export default function App() {
   const [repeat, setRepeat] = useState(true);
   const [customFontSize, setCustomFontSize] = useState(130);
   const [orientLandscape, setOrientLandscape] = useState(true);
+  const [sounds, setSounds] = useState(false);
 
-  let viewIsLandscape = false;
+  let currentViewIsLandscape = false; // view for interacting with UI is Portrait
+
+  useEffect(() => {
+    currentViewIsLandscape = false;
+    changeScreenOrientation();
+  }, []);
 
   let screenWidth, screenHeight;
   const displayTimeAmounts = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
 
   async function changeScreenOrientation() {
-    if (orientLandscape) {
+    if (orientLandscape && currentViewIsLandscape) {
       ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
       );
-      viewIsLandscape = true;
     } else {
       ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.PORTRAIT_UP
       );
-      viewIsLandscape = false;
     }
   }
 
@@ -68,10 +72,17 @@ export default function App() {
     // default screen displays when returning from display screens
     setShowingFlash(false);
     // always return to portrait orientation if on landscape
-    viewIsLandscape = false;
     changeScreenOrientation();
     // and restore the StatusBar
     StatusBar.setHidden(false);
+  };
+
+  const toggleSounds = () => {
+    setSounds(!sounds);
+  };
+
+  const toggleColors = () => {
+    console.log('Color toggler...');
   };
 
   const startDisplay = () => {
@@ -85,12 +96,18 @@ export default function App() {
     screenHeight = Dimensions.get('window').height;
     console.log(`User Screen: ${screenWidth} WIDTH / ${screenHeight} HEIGHT`);
     // _______________________________________________________________
+    // setTimeout(() => {
+    //   setMessageToDisplay(splitMessageForFlash(enteredText));
+    //   setShowingFlash(true);
+    //   if (orientLandscape) {
+    //     currentViewIsLandscape = true;
+    //   }
+    //   changeScreenOrientation();
+    // }, 1000);
     setMessageToDisplay(splitMessageForFlash(enteredText));
     setShowingFlash(true);
     if (orientLandscape) {
-      viewIsLandscape = true;
-    } else {
-      viewIsLandscape = false;
+      currentViewIsLandscape = true;
     }
     changeScreenOrientation();
   };
@@ -113,6 +130,7 @@ export default function App() {
         userTime={userTime * 1000}
         width={screenWidth}
         height={screenHeight}
+        soundsOn={sounds}
       />
     )) ||
     (!showingFlash && (
@@ -139,6 +157,9 @@ export default function App() {
               repeat={repeat}
               orientIn={orientLandscape}
               toggleUserOrientation={toggleUserOrientation}
+              toggleSounds={toggleSounds}
+              soundsOn={sounds}
+              toggleColors={toggleColors}
             />
           </View>
         </View>
