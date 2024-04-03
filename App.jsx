@@ -17,8 +17,9 @@ export default function App() {
   const [orientLandscape, setOrientLandscape] = useState(true);
   const [sounds, setSounds] = useState(false);
 
-  let currentViewIsLandscape = false; // view for interacting with UI is Portrait
+  // view for interacting with UI is Portrait
 
+  let currentViewIsLandscape = false;
   useEffect(() => {
     currentViewIsLandscape = false;
     changeScreenOrientation();
