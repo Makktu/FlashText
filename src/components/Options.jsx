@@ -15,6 +15,8 @@ export default function Options({
   toggleSounds,
   soundsOn,
   toggleColors,
+  darkOn,
+  toggleStyle,
 }) {
   return (
     <View style={styles.container}>
@@ -41,6 +43,9 @@ export default function Options({
       </Button>
       <Button onPress={toggleColors} style={styles.button}>
         Border colors ON
+      </Button>
+      <Button onPress={toggleStyle} style={styles.button}>
+        Message Style: {darkOn == 0 ? 'DARK' : 'LIGHT'}
       </Button>
       <Button style={styles.button}>Privacy & About</Button>
     </View>

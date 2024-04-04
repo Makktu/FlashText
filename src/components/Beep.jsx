@@ -13,11 +13,7 @@ export default function Beep() {
     console.log('Playing Sound');
     await sound.playAsync();
   }
-  return (
-    <View>
-      <Text>Beep</Text>
-    </View>
-  );
+  return <View></View>;
 }
 
 const styles = StyleSheet.create({});

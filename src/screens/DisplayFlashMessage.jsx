@@ -17,17 +17,30 @@ export default function DisplayFlashMessage({
   message,
   repeat,
   soundsOn,
+  darkOn,
 }) {
   //disable statusbar in message display
+  const wordDuration = userTime;
+  const [nextWord, setNextWord] = useState(0);
+  const [sound, setSound] = useState();
+
+  let userBackground, userText;
+  if (darkOn == 0) {
+    userBackground = 'black';
+    userText = 'orangered';
+  } else {
+    userBackground = 'white';
+    userText = 'darkblue';
+  }
+
   useEffect(() => {
     StatusBar.setHidden(true);
-    if (soundsOn > 0) playSound();
+
+    if (soundsOn > 0) {
+      playSound();
+    }
   }, []);
 
-  const wordDuration = userTime;
-  let playNoMoreSounds = false;
-
-  const [sound, setSound] = useState();
   async function playSound() {
     const { sound } = await Audio.Sound.createAsync(
       require('./../../assets/sfx/flashbeep.wav')
@@ -36,9 +49,17 @@ export default function DisplayFlashMessage({
     await sound.playAsync();
   }
 
+  useEffect(() => {
+    return sound
+      ? () => {
+          console.log('Unloading Sound', message[nextWord]);
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
+
   const FlashView = ({ children }) => {
     const animatedValue = useRef(new Animated.Value(0)).current; // initial value for word opacity
-    const customFontSize = width / 15;
 
     useEffect(() => {
       Animated.timing(animatedValue, {
@@ -47,7 +68,7 @@ export default function DisplayFlashMessage({
         useNativeDriver: true,
       }).start(({ finished }) => {
         animationEnded();
-        if (finished && soundsOn == 2) playSound();
+        if (finished && soundsOn == 2) callSound();
       });
     }, [animatedValue]);
 
@@ -78,16 +99,14 @@ export default function DisplayFlashMessage({
     );
   };
 
-  const [nextWord, setNextWord] = useState(0);
-
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: userBackground }]}>
       <TouchableOpacity onPress={returnTap}>
         <FlashView>
           <Text
             adjustsFontSizeToFit={true}
             numberOfLines={1}
-            style={[styles.text]}
+            style={[styles.text, { color: userText }]}
           >
             {message[nextWord]}
           </Text>
@@ -99,7 +118,6 @@ export default function DisplayFlashMessage({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#000000',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -109,7 +127,6 @@ const styles = StyleSheet.create({
     // borderWidth: 2,
   },
   text: {
-    color: 'orangered',
     // height: '100%',
     // width: '100%',
     // borderColor: '#09b9f4',

@@ -16,6 +16,7 @@ export default function App() {
   const [customFontSize, setCustomFontSize] = useState(130);
   const [orientLandscape, setOrientLandscape] = useState(true);
   const [sounds, setSounds] = useState(0); // sound modes: 0 - none; 1 - starting beep; 2 -- all beeps
+  const [darkOn, setDarkOn] = useState(0);
 
   // view for interacting with UI is Portrait
 
@@ -89,6 +90,10 @@ export default function App() {
     console.log('Color toggler...');
   };
 
+  const toggleStyle = () => {
+    darkOn == 0 ? setDarkOn(1) : setDarkOn(0);
+  };
+
   const startDisplay = () => {
     if (!enteredText) {
       console.log('nowt there');
@@ -135,6 +140,7 @@ export default function App() {
         width={screenWidth}
         height={screenHeight}
         soundsOn={sounds}
+        darkOn={darkOn}
       />
     )) ||
     (!showingFlash && (
@@ -164,6 +170,8 @@ export default function App() {
               toggleSounds={toggleSounds}
               soundsOn={sounds}
               toggleColors={toggleColors}
+              darkOn={darkOn}
+              toggleStyle={toggleStyle}
             />
           </View>
         </View>
