@@ -15,7 +15,7 @@ export default function App() {
   const [repeat, setRepeat] = useState(true);
   const [customFontSize, setCustomFontSize] = useState(130);
   const [orientLandscape, setOrientLandscape] = useState(true);
-  const [sounds, setSounds] = useState(false);
+  const [sounds, setSounds] = useState(0); // sound modes: 0 - none; 1 - starting beep; 2 -- all beeps
 
   // view for interacting with UI is Portrait
 
@@ -79,7 +79,10 @@ export default function App() {
   };
 
   const toggleSounds = () => {
-    setSounds(!sounds);
+    let tempSound = sounds;
+    tempSound += 1;
+    if (tempSound > 2) tempSound = 0;
+    setSounds(tempSound);
   };
 
   const toggleColors = () => {

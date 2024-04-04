@@ -36,7 +36,8 @@ export default function Options({
         Display: {orientIn ? 'LANDSCAPE' : 'PORTRAIT'}
       </Button>
       <Button onPress={toggleSounds} style={styles.button}>
-        Sounds: {soundsOn ? 'ON' : 'OFF'}
+        Sounds:
+        {soundsOn == 0 ? 'OFF' : soundsOn == 1 ? 'Starting Beep' : 'All Beeps'}
       </Button>
       <Button onPress={toggleColors} style={styles.button}>
         Border colors ON

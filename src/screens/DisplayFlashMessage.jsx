@@ -21,10 +21,11 @@ export default function DisplayFlashMessage({
   //disable statusbar in message display
   useEffect(() => {
     StatusBar.setHidden(true);
-    if (soundsOn) playSound();
+    if (soundsOn > 0) playSound();
   }, []);
 
   const wordDuration = userTime;
+  let playNoMoreSounds = false;
 
   const [sound, setSound] = useState();
   async function playSound() {
@@ -46,7 +47,7 @@ export default function DisplayFlashMessage({
         useNativeDriver: true,
       }).start(({ finished }) => {
         animationEnded();
-        if (finished && soundsOn) playSound();
+        if (finished && soundsOn == 2) playSound();
       });
     }, [animatedValue]);
 
