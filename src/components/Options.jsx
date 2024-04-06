@@ -44,8 +44,13 @@ export default function Options({
       <Button onPress={toggleColors} style={styles.button}>
         Border colors ON
       </Button>
-      <Button onPress={toggleStyle} style={styles.button}>
-        Message Style: {darkOn == 0 ? 'DARK' : 'LIGHT'}
+      <Button
+        onPress={toggleStyle}
+        style={darkOn == 0 ? styles.darkButton : styles.lightButton}
+      >
+        <Text style={darkOn == 0 ? { color: 'orangered' } : { color: 'black' }}>
+          Message Style: {darkOn == 0 ? 'DARK' : 'LIGHT'}
+        </Text>
       </Button>
       <Button style={styles.button}>Privacy & About</Button>
     </View>
@@ -79,5 +84,11 @@ const styles = StyleSheet.create({
   },
   infoText: {
     color: 'red',
+  },
+  darkButton: {
+    backgroundColor: 'black',
+  },
+  lightButton: {
+    backgroundColor: 'white',
   },
 });

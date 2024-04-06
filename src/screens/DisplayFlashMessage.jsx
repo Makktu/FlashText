@@ -6,8 +6,8 @@ import {
   Animated,
   StatusBar,
 } from 'react-native';
-import React, { useState, useEffect, useRef } from 'react';
-import { Audio } from 'expo-av';
+import React, { useState, useEffect, useRef, memo } from 'react';
+import Beep from '../components/Beep';
 
 export default function DisplayFlashMessage({
   height,
@@ -22,7 +22,10 @@ export default function DisplayFlashMessage({
   //disable statusbar in message display
   const wordDuration = userTime;
   const [nextWord, setNextWord] = useState(0);
-  const [sound, setSound] = useState();
+
+  useEffect(() => {
+    StatusBar.setHidden(true);
+  }, []);
 
   let userBackground, userText;
   if (darkOn == 0) {
@@ -32,31 +35,6 @@ export default function DisplayFlashMessage({
     userBackground = 'white';
     userText = 'darkblue';
   }
-
-  useEffect(() => {
-    StatusBar.setHidden(true);
-
-    if (soundsOn > 0) {
-      playSound();
-    }
-  }, []);
-
-  async function playSound() {
-    const { sound } = await Audio.Sound.createAsync(
-      require('./../../assets/sfx/flashbeep.wav')
-    );
-    setSound(sound);
-    await sound.playAsync();
-  }
-
-  useEffect(() => {
-    return sound
-      ? () => {
-          console.log('Unloading Sound', message[nextWord]);
-          sound.unloadAsync();
-        }
-      : undefined;
-  }, [sound]);
 
   const FlashView = ({ children }) => {
     const animatedValue = useRef(new Animated.Value(0)).current; // initial value for word opacity
@@ -68,7 +46,6 @@ export default function DisplayFlashMessage({
         useNativeDriver: true,
       }).start(({ finished }) => {
         animationEnded();
-        if (finished && soundsOn == 2) callSound();
       });
     }, [animatedValue]);
 
