@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { StyleSheet, View, Dimensions, StatusBar } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
+import { Audio } from 'expo-av';
 import Title from './src/gui/Title';
 import Input from './src/components/Input';
 import Options from './src/components/Options';
@@ -17,6 +18,7 @@ export default function App() {
   const [orientLandscape, setOrientLandscape] = useState(true);
   const [sounds, setSounds] = useState(0); // sound modes: 0 - none; 1 - starting beep; 2 -- all beeps
   const [darkOn, setDarkOn] = useState(0);
+  const [sound, setSound] = useState();
 
   // view for interacting with UI is Portrait
 
@@ -40,6 +42,25 @@ export default function App() {
       );
     }
   }
+
+  async function playSound() {
+    console.log('Loading Sound');
+    const { sound } = await Audio.Sound.createAsync(
+      require('./assets/sfx/flashbeep.wav')
+    );
+    setSound(sound);
+
+    console.log('Playing Sound');
+    await sound.playAsync();
+  }
+
+  useEffect(() => {
+    return sound
+      ? () => {
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
 
   const inputHandler = (enteredText) => {
     setEnteredText(enteredText);
@@ -141,6 +162,7 @@ export default function App() {
         height={screenHeight}
         soundsOn={sounds}
         darkOn={darkOn}
+        beepNeeded={playSound}
       />
     )) ||
     (!showingFlash && (

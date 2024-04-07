@@ -6,8 +6,7 @@ import {
   Animated,
   StatusBar,
 } from 'react-native';
-import React, { useState, useEffect, useRef, memo } from 'react';
-import Beep from '../components/Beep';
+import React, { useState, useEffect, useRef } from 'react';
 
 export default function DisplayFlashMessage({
   height,
@@ -18,6 +17,7 @@ export default function DisplayFlashMessage({
   repeat,
   soundsOn,
   darkOn,
+  beepNeeded,
 }) {
   //disable statusbar in message display
   const wordDuration = userTime;
