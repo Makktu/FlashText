@@ -1,23 +1,40 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function Options({
   startDisplay,
   displayTimeHandler,
   repeatHandler,
-  displayMode,
   displayTime,
   repeat,
   orientIn,
   toggleUserOrientation,
-  toggleSounds,
-  soundsOn,
   toggleColors,
   darkOn,
+  userBgColor,
+  userTxtColor,
   toggleStyle,
+  stylesPicked,
+  bg,
+  txt,
 }) {
+  // useEffect(() => {
+  //   userBgColor = COLORS_BACKGROUND[styles[0]];
+  //   userTxtColor = COLORS_TEXT[[styles[1]]];
+  // }, [styles]);
+
+  // let showingBgColor, showingTxtColor;
+  // let firstBgLetter = userBgColor.charAt(0).toUpperCase();
+  // let firstTxtLetter = userTxtColor.charAt(0).toUpperCase();
+  // let remainingBgLetters = userBgColor.slice(1);
+  // let remainingTxtLetters = userTxtColor.slice(1);
+  // // buttonBgColor = userBgColor;
+  // // buttonTxtColor = userTxtColor;
+  // showingBgColor = firstBgLetter + remainingBgLetters;
+  // showingTxtColor = firstTxtLetter + remainingTxtLetters;
+  // console.log(showingBgColor, showingTxtColor);
   return (
     <View style={styles.container}>
       <View style={styles.goButtonContainer}>
@@ -31,27 +48,18 @@ export default function Options({
       <Button onPress={displayTimeHandler} style={styles.button}>
         Time per word: {displayTime}s
       </Button>
+      <Button onPress={toggleStyle} style={{ backgroundColor: bg }}>
+        <Text style={{ color: txt }}>
+          Style: {txt} on {bg}
+        </Text>
+      </Button>
       <Button onPress={repeatHandler} color={'black'} style={styles.button}>
         {repeat ? 'Message Repeat: YES' : 'Message Repeat: NO'}
       </Button>
       <Button onPress={toggleUserOrientation} style={styles.button}>
         Display: {orientIn ? 'LANDSCAPE' : 'PORTRAIT'}
       </Button>
-      <Button onPress={toggleSounds} style={styles.button}>
-        Sounds:
-        {soundsOn == 0 ? 'OFF' : soundsOn == 1 ? 'Starting Beep' : 'All Beeps'}
-      </Button>
-      <Button onPress={toggleColors} style={styles.button}>
-        Border colors ON
-      </Button>
-      <Button
-        onPress={toggleStyle}
-        style={darkOn == 0 ? styles.darkButton : styles.lightButton}
-      >
-        <Text style={darkOn == 0 ? { color: 'orangered' } : { color: 'black' }}>
-          Message Style: {darkOn == 0 ? 'DARK' : 'LIGHT'}
-        </Text>
-      </Button>
+
       <Button style={styles.button}>Privacy & About</Button>
     </View>
   );

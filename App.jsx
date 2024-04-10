@@ -17,14 +17,19 @@ export default function App() {
   const [orientLandscape, setOrientLandscape] = useState(true);
   const [sounds, setSounds] = useState(0); // sound modes: 0 - none; 1 - starting beep; 2 -- all beeps
   const [darkOn, setDarkOn] = useState(0);
+  const [styles, setStyles] = useState(['black', 'yellow']);
 
-  // view for interacting with UI is Portrait
-
-  let currentViewIsLandscape = false;
   useEffect(() => {
     currentViewIsLandscape = false;
     changeScreenOrientation();
   }, []);
+
+  const COLORS_BACKGROUND = ['black', 'yellow', 'red', 'blue', 'white'];
+  const COLORS_TEXT = ['yellow', 'black', 'white', 'white', 'black'];
+  let userBgColor = styles[0];
+  let userTxtColor = styles[1];
+
+  let currentViewIsLandscape = false;
 
   let screenWidth, screenHeight;
   const displayTimeAmounts = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
@@ -91,7 +96,23 @@ export default function App() {
   };
 
   const toggleStyle = () => {
-    darkOn == 0 ? setDarkOn(1) : setDarkOn(0);
+    //find where we are in the array
+    let currentBg = styles[0];
+    console.log(currentBg);
+    console.log(COLORS_BACKGROUND.length);
+    let newStyle;
+    for (let a = 0; a < COLORS_BACKGROUND.length - 1; a++) {
+      console.log(newStyle);
+      if (COLORS_BACKGROUND[a] == currentBg) {
+        newStyle = a + 1;
+        if (newStyle == COLORS_BACKGROUND.length - 1) {
+          newStyle = 0;
+        }
+      }
+    }
+    console.log(newStyle);
+    setStyles([COLORS_BACKGROUND[newStyle], COLORS_TEXT[newStyle]]);
+    console.log(styles[0], styles[1]);
   };
 
   const startDisplay = () => {
@@ -104,15 +125,6 @@ export default function App() {
     screenWidth = Dimensions.get('window').width;
     screenHeight = Dimensions.get('window').height;
     console.log(`User Screen: ${screenWidth} WIDTH / ${screenHeight} HEIGHT`);
-    // _______________________________________________________________
-    // setTimeout(() => {
-    //   setMessageToDisplay(splitMessageForFlash(enteredText));
-    //   setShowingFlash(true);
-    //   if (orientLandscape) {
-    //     currentViewIsLandscape = true;
-    //   }
-    //   changeScreenOrientation();
-    // }, 1000);
     setMessageToDisplay(splitMessageForFlash(enteredText));
     setShowingFlash(true);
     if (orientLandscape) {
@@ -172,6 +184,8 @@ export default function App() {
               toggleColors={toggleColors}
               darkOn={darkOn}
               toggleStyle={toggleStyle}
+              bg={userBgColor}
+              txt={userTxtColor}
             />
           </View>
         </View>
