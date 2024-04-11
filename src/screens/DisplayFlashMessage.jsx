@@ -16,52 +16,17 @@ export default function DisplayFlashMessage({
   returnTap,
   message,
   repeat,
-  soundsOn,
-  darkOn,
+  userBg,
+  userTxt,
 }) {
   //disable statusbar in message display
   const wordDuration = userTime;
   const [nextWord, setNextWord] = useState(0);
-  const [sound, setSound] = useState();
-  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     StatusBar.setHidden(true);
+    console.log(userBg, userTxt);
   }, []);
-
-  useEffect(() => {
-    console.log(nextWord);
-  }, [nextWord]);
-
-  let userBackground, userText;
-  if (darkOn == 0) {
-    userBackground = 'black';
-    userText = 'orangered';
-  } else {
-    userBackground = 'white';
-    userText = 'darkblue';
-  }
-
-  async function playSound() {
-    if (!isPlaying) {
-      console.log('Loading Sound');
-      const { sound } = await Audio.Sound.createAsync(
-        require('./../../assets/sfx/flashbeep.wav')
-      );
-      setSound(sound);
-
-      console.log('Playing Sound');
-      await sound.playAsync();
-    }
-  }
-
-  useEffect(() => {
-    return sound
-      ? () => {
-          sound.unloadAsync();
-        }
-      : undefined;
-  }, [sound]);
 
   const FlashView = ({ children }) => {
     const animatedValue = useRef(new Animated.Value(0)).current; // initial value for word opacity
@@ -73,9 +38,6 @@ export default function DisplayFlashMessage({
         useNativeDriver: true,
       }).start(({ finished }) => {
         animationEnded();
-        if (finished && soundsOn && !isPlaying) {
-          playSound();
-        }
       });
     }, [animatedValue]);
 
@@ -107,13 +69,13 @@ export default function DisplayFlashMessage({
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: userBackground }]}>
+    <View style={[styles.container, { backgroundColor: userBg }]}>
       <TouchableOpacity onPress={returnTap}>
         <FlashView>
           <Text
             adjustsFontSizeToFit={true}
             numberOfLines={1}
-            style={[styles.text, { color: userText }]}
+            style={[styles.text, { color: userTxt }]}
           >
             {message[nextWord]}
           </Text>

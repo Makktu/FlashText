@@ -11,30 +11,19 @@ export default function Options({
   repeat,
   orientIn,
   toggleUserOrientation,
-  toggleColors,
-  darkOn,
-  userBgColor,
-  userTxtColor,
   toggleStyle,
-  stylesPicked,
   bg,
   txt,
 }) {
-  // useEffect(() => {
-  //   userBgColor = COLORS_BACKGROUND[styles[0]];
-  //   userTxtColor = COLORS_TEXT[[styles[1]]];
-  // }, [styles]);
+  let showingBgColor, showingTxtColor;
+  let firstBgLetter = bg.charAt(0).toUpperCase();
+  let firstTxtLetter = txt.charAt(0).toUpperCase();
+  let remainingBgLetters = bg.slice(1);
+  let remainingTxtLetters = txt.slice(1);
+  showingBgColor = firstBgLetter + remainingBgLetters;
+  showingTxtColor = firstTxtLetter + remainingTxtLetters;
+  console.log(showingTxtColor, showingBgColor);
 
-  // let showingBgColor, showingTxtColor;
-  // let firstBgLetter = userBgColor.charAt(0).toUpperCase();
-  // let firstTxtLetter = userTxtColor.charAt(0).toUpperCase();
-  // let remainingBgLetters = userBgColor.slice(1);
-  // let remainingTxtLetters = userTxtColor.slice(1);
-  // // buttonBgColor = userBgColor;
-  // // buttonTxtColor = userTxtColor;
-  // showingBgColor = firstBgLetter + remainingBgLetters;
-  // showingTxtColor = firstTxtLetter + remainingTxtLetters;
-  // console.log(showingBgColor, showingTxtColor);
   return (
     <View style={styles.container}>
       <View style={styles.goButtonContainer}>
@@ -49,8 +38,8 @@ export default function Options({
         Time per word: {displayTime}s
       </Button>
       <Button onPress={toggleStyle} style={{ backgroundColor: bg }}>
-        <Text style={{ color: txt }}>
-          Style: {txt} on {bg}
+        <Text style={{ color: txt, fontWeight: 'bold' }}>
+          Style: {showingTxtColor} on {showingBgColor}
         </Text>
       </Button>
       <Button onPress={repeatHandler} color={'black'} style={styles.button}>

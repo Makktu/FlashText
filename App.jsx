@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, View, Dimensions, StatusBar } from 'react-native';
+import { StyleSheet, View, StatusBar } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import Title from './src/gui/Title';
 import Input from './src/components/Input';
@@ -13,10 +13,7 @@ export default function App() {
   const [showingFlash, setShowingFlash] = useState(false);
   const [userTime, setUserTime] = useState(0.75);
   const [repeat, setRepeat] = useState(true);
-  const [customFontSize, setCustomFontSize] = useState(130);
   const [orientLandscape, setOrientLandscape] = useState(true);
-  const [sounds, setSounds] = useState(0); // sound modes: 0 - none; 1 - starting beep; 2 -- all beeps
-  const [darkOn, setDarkOn] = useState(0);
   const [styles, setStyles] = useState(['black', 'yellow']);
 
   useEffect(() => {
@@ -24,13 +21,19 @@ export default function App() {
     changeScreenOrientation();
   }, []);
 
-  const COLORS_BACKGROUND = ['black', 'yellow', 'red', 'blue', 'white'];
-  const COLORS_TEXT = ['yellow', 'black', 'white', 'white', 'black'];
+  const COLORS_BACKGROUND = [
+    'black',
+    'yellow',
+    'green',
+    'red',
+    'blue',
+    'white',
+  ];
+  const COLORS_TEXT = ['yellow', 'black', 'white', 'white', 'white', 'black'];
   let userBgColor = styles[0];
   let userTxtColor = styles[1];
-
   let currentViewIsLandscape = false;
-
+  let currentBg = styles[0];
   let screenWidth, screenHeight;
   const displayTimeAmounts = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
 
@@ -84,35 +87,22 @@ export default function App() {
     StatusBar.setHidden(false);
   };
 
-  const toggleSounds = () => {
-    let tempSound = sounds;
-    tempSound += 1;
-    if (tempSound > 2) tempSound = 0;
-    setSounds(tempSound);
-  };
-
   const toggleColors = () => {
     console.log('Color toggler...');
   };
 
   const toggleStyle = () => {
-    //find where we are in the array
-    let currentBg = styles[0];
-    console.log(currentBg);
-    console.log(COLORS_BACKGROUND.length);
     let newStyle;
-    for (let a = 0; a < COLORS_BACKGROUND.length - 1; a++) {
-      console.log(newStyle);
+    for (let a = 0; a < COLORS_BACKGROUND.length; a++) {
       if (COLORS_BACKGROUND[a] == currentBg) {
         newStyle = a + 1;
-        if (newStyle == COLORS_BACKGROUND.length - 1) {
+        if (newStyle == COLORS_BACKGROUND.length) {
           newStyle = 0;
         }
       }
     }
-    console.log(newStyle);
+    currentBg = styles[newStyle];
     setStyles([COLORS_BACKGROUND[newStyle], COLORS_TEXT[newStyle]]);
-    console.log(styles[0], styles[1]);
   };
 
   const startDisplay = () => {
@@ -122,9 +112,9 @@ export default function App() {
     }
     // ________________________________ debug info
     // _________________________________get user screen dimensions
-    screenWidth = Dimensions.get('window').width;
-    screenHeight = Dimensions.get('window').height;
-    console.log(`User Screen: ${screenWidth} WIDTH / ${screenHeight} HEIGHT`);
+    // screenWidth = Dimensions.get('window').width;
+    // screenHeight = Dimensions.get('window').height;
+    // console.log(`User Screen: ${screenWidth} WIDTH / ${screenHeight} HEIGHT`);
     setMessageToDisplay(splitMessageForFlash(enteredText));
     setShowingFlash(true);
     if (orientLandscape) {
@@ -147,12 +137,11 @@ export default function App() {
         message={messageToDisplay}
         returnTap={returnTap}
         repeat={repeat}
-        customFontSize={customFontSize}
         userTime={userTime * 1000}
         width={screenWidth}
         height={screenHeight}
-        soundsOn={sounds}
-        darkOn={darkOn}
+        userBg={userBgColor}
+        userTxt={userTxtColor}
       />
     )) ||
     (!showingFlash && (
@@ -172,17 +161,13 @@ export default function App() {
           <View style={styles.optionsContainer}>
             <Options
               startDisplay={startDisplay}
-              displayMode={displayMode}
               displayTimeHandler={displayTimeHandler}
               repeatHandler={repeatHandler}
               displayTime={userTime}
               repeat={repeat}
               orientIn={orientLandscape}
               toggleUserOrientation={toggleUserOrientation}
-              toggleSounds={toggleSounds}
-              soundsOn={sounds}
               toggleColors={toggleColors}
-              darkOn={darkOn}
               toggleStyle={toggleStyle}
               bg={userBgColor}
               txt={userTxtColor}
