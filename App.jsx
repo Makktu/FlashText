@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, View, StatusBar } from 'react-native';
+import { StyleSheet, View, StatusBar, SafeAreaView } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import Title from './src/gui/Title';
 import Input from './src/components/Input';
@@ -146,34 +146,36 @@ export default function App() {
     )) ||
     (!showingFlash && (
       <>
-        <StatusBar style='light' />
-        <View style={styles.container}>
-          <View style={styles.titleContainer}>
-            <Title />
+        <SafeAreaView>
+          <StatusBar style='light' />
+          <View style={styles.container}>
+            <View style={styles.titleContainer}>
+              <Title />
+            </View>
+            <View style={styles.inputContainer}>
+              <Input
+                enteredText={enteredText}
+                inputHandler={inputHandler}
+                clearPressHandler={clearPressHandler}
+              />
+            </View>
+            <View style={styles.optionsContainer}>
+              <Options
+                startDisplay={startDisplay}
+                displayTimeHandler={displayTimeHandler}
+                repeatHandler={repeatHandler}
+                displayTime={userTime}
+                repeat={repeat}
+                orientIn={orientLandscape}
+                toggleUserOrientation={toggleUserOrientation}
+                toggleColors={toggleColors}
+                toggleStyle={toggleStyle}
+                bg={userBgColor}
+                txt={userTxtColor}
+              />
+            </View>
           </View>
-          <View style={styles.inputContainer}>
-            <Input
-              enteredText={enteredText}
-              inputHandler={inputHandler}
-              clearPressHandler={clearPressHandler}
-            />
-          </View>
-          <View style={styles.optionsContainer}>
-            <Options
-              startDisplay={startDisplay}
-              displayTimeHandler={displayTimeHandler}
-              repeatHandler={repeatHandler}
-              displayTime={userTime}
-              repeat={repeat}
-              orientIn={orientLandscape}
-              toggleUserOrientation={toggleUserOrientation}
-              toggleColors={toggleColors}
-              toggleStyle={toggleStyle}
-              bg={userBgColor}
-              txt={userTxtColor}
-            />
-          </View>
-        </View>
+        </SafeAreaView>
       </>
     ))
   );
