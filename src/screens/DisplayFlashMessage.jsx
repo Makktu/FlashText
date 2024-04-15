@@ -7,6 +7,12 @@ import {
   StatusBar,
 } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
+import {
+  SafeAreaProvider,
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
+
 import { Audio } from 'expo-av';
 
 export default function DisplayFlashMessage({
@@ -22,6 +28,7 @@ export default function DisplayFlashMessage({
   //disable statusbar in message display
   const wordDuration = userTime;
   const [nextWord, setNextWord] = useState(0);
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     StatusBar.setHidden(true);
@@ -52,36 +59,40 @@ export default function DisplayFlashMessage({
     };
 
     return (
-      <Animated.View
-        style={{
-          opacity: animatedValue,
-          // borderColor: '#aaff00',
-          // borderWidth: 2,
-          height: '100%',
-          width: '100%',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        {children}
-      </Animated.View>
+      <SafeAreaView>
+        <Animated.View
+          style={{
+            opacity: animatedValue,
+            // borderColor: '#aaff00',
+            // borderWidth: 2,
+            height: '100%',
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {children}
+        </Animated.View>
+      </SafeAreaView>
     );
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: userBg }]}>
-      <TouchableOpacity onPress={returnTap}>
-        <FlashView>
-          <Text
-            adjustsFontSizeToFit={true}
-            numberOfLines={1}
-            style={[styles.text, { color: userTxt }]}
-          >
-            {message[nextWord]}
-          </Text>
-        </FlashView>
-      </TouchableOpacity>
-    </View>
+    <SafeAreaProvider>
+      <View style={[styles.container, { backgroundColor: userBg }]}>
+        <TouchableOpacity onPress={returnTap}>
+          <FlashView>
+            <Text
+              adjustsFontSizeToFit={true}
+              numberOfLines={1}
+              style={[styles.text, { color: userTxt }]}
+            >
+              {message[nextWord]}
+            </Text>
+          </FlashView>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaProvider>
   );
 }
 
@@ -90,8 +101,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    width: '100%',
-    height: '100%',
+    // width: '100%',
+    // height: '100%',
     // borderColor: 'red',
     // borderWidth: 2,
   },
@@ -100,6 +111,6 @@ const styles = StyleSheet.create({
     // width: '100%',
     // borderColor: '#09b9f4',
     // borderWidth: 2,
-    fontSize: 280,
+    fontSize: 580,
   },
 });

@@ -22,6 +22,7 @@ export default function Options({
   let remainingTxtLetters = txt.slice(1);
   showingBgColor = firstBgLetter + remainingBgLetters;
   showingTxtColor = firstTxtLetter + remainingTxtLetters;
+  if (showingBgColor[0] == '#') showingBgColor = 'Pink';
   console.log(showingTxtColor, showingBgColor);
 
   return (

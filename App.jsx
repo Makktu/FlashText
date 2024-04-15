@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, View, StatusBar, SafeAreaView } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import * as ScreenOrientation from 'expo-screen-orientation';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Title from './src/gui/Title';
 import Input from './src/components/Input';
 import Options from './src/components/Options';
@@ -14,7 +16,7 @@ export default function App() {
   const [userTime, setUserTime] = useState(0.75);
   const [repeat, setRepeat] = useState(true);
   const [orientLandscape, setOrientLandscape] = useState(true);
-  const [styles, setStyles] = useState(['black', 'yellow']);
+  const [userStyles, setUserStyles] = useState(['black', 'yellow']);
 
   useEffect(() => {
     currentViewIsLandscape = false;
@@ -28,12 +30,21 @@ export default function App() {
     'red',
     'blue',
     'white',
+    '#F535AA',
   ];
-  const COLORS_TEXT = ['yellow', 'black', 'white', 'white', 'white', 'black'];
-  let userBgColor = styles[0];
-  let userTxtColor = styles[1];
+  const COLORS_TEXT = [
+    'yellow',
+    'black',
+    'white',
+    'white',
+    'white',
+    'black',
+    'white',
+  ];
+  let userBgColor = userStyles[0];
+  let userTxtColor = userStyles[1];
   let currentViewIsLandscape = false;
-  let currentBg = styles[0];
+  let currentBg = userStyles[0];
   let screenWidth, screenHeight;
   const displayTimeAmounts = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
 
@@ -84,7 +95,7 @@ export default function App() {
     // always return to portrait orientation if on landscape
     changeScreenOrientation();
     // and restore the StatusBar
-    StatusBar.setHidden(false);
+    // StatusBar.setHidden(false);
   };
 
   const toggleColors = () => {
@@ -101,8 +112,8 @@ export default function App() {
         }
       }
     }
-    currentBg = styles[newStyle];
-    setStyles([COLORS_BACKGROUND[newStyle], COLORS_TEXT[newStyle]]);
+    currentBg = userStyles[newStyle];
+    setUserStyles([COLORS_BACKGROUND[newStyle], COLORS_TEXT[newStyle]]);
   };
 
   const startDisplay = () => {
@@ -133,49 +144,53 @@ export default function App() {
 
   return (
     (showingFlash && (
-      <DisplayFlashMessage
-        message={messageToDisplay}
-        returnTap={returnTap}
-        repeat={repeat}
-        userTime={userTime * 1000}
-        width={screenWidth}
-        height={screenHeight}
-        userBg={userBgColor}
-        userTxt={userTxtColor}
-      />
+      <SafeAreaProvider>
+        <DisplayFlashMessage
+          message={messageToDisplay}
+          returnTap={returnTap}
+          repeat={repeat}
+          userTime={userTime * 1000}
+          width={screenWidth}
+          height={screenHeight}
+          userBg={userBgColor}
+          userTxt={userTxtColor}
+        />
+      </SafeAreaProvider>
     )) ||
     (!showingFlash && (
       <>
-        <SafeAreaView>
-          <StatusBar style='light' />
-          <View style={styles.container}>
-            <View style={styles.titleContainer}>
-              <Title />
+        <StatusBar style='light' hidden={false} />
+        <SafeAreaProvider>
+          <SafeAreaView style={styles.container}>
+            <View>
+              <View>
+                <Title />
+              </View>
+              <View>
+                <Input
+                  enteredText={enteredText}
+                  inputHandler={inputHandler}
+                  clearPressHandler={clearPressHandler}
+                />
+              </View>
+              <View style={styles.optionsContainer}>
+                <Options
+                  startDisplay={startDisplay}
+                  displayTimeHandler={displayTimeHandler}
+                  repeatHandler={repeatHandler}
+                  displayTime={userTime}
+                  repeat={repeat}
+                  orientIn={orientLandscape}
+                  toggleUserOrientation={toggleUserOrientation}
+                  toggleColors={toggleColors}
+                  toggleStyle={toggleStyle}
+                  bg={userBgColor}
+                  txt={userTxtColor}
+                />
+              </View>
             </View>
-            <View style={styles.inputContainer}>
-              <Input
-                enteredText={enteredText}
-                inputHandler={inputHandler}
-                clearPressHandler={clearPressHandler}
-              />
-            </View>
-            <View style={styles.optionsContainer}>
-              <Options
-                startDisplay={startDisplay}
-                displayTimeHandler={displayTimeHandler}
-                repeatHandler={repeatHandler}
-                displayTime={userTime}
-                repeat={repeat}
-                orientIn={orientLandscape}
-                toggleUserOrientation={toggleUserOrientation}
-                toggleColors={toggleColors}
-                toggleStyle={toggleStyle}
-                bg={userBgColor}
-                txt={userTxtColor}
-              />
-            </View>
-          </View>
-        </SafeAreaView>
+          </SafeAreaView>
+        </SafeAreaProvider>
       </>
     ))
   );
@@ -191,9 +206,13 @@ const styles = StyleSheet.create({
   textSmall: {
     color: 'orangered',
   },
-  titleContainer: {
-    position: 'absolute',
-    top: 50,
-    flex: 1,
+  optionsContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
+  // titleContainer: {
+  //   position: 'absolute',
+  //   top: 50,
+  //   flex: 1,
+  // },
 });

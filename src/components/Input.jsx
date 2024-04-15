@@ -29,15 +29,14 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 180,
+    marginTop: 10,
     marginHorizontal: 4,
   },
   input: {
-    height: 100,
+    height: 200,
     width: 300,
     borderRadius: 20,
     backgroundColor: '#073044',
-    textAlign: 'center',
     color: 'white',
   },
 });
