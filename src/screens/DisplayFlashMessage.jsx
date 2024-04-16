@@ -85,7 +85,7 @@ export default function DisplayFlashMessage({
             <Text
               adjustsFontSizeToFit={true}
               numberOfLines={1}
-              style={[styles.text, { color: userTxt }]}
+              style={[styles.text, { color: userTxt, padding: 5 }]}
             >
               {message[nextWord]}
             </Text>

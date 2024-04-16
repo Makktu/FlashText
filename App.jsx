@@ -17,6 +17,7 @@ export default function App() {
   const [repeat, setRepeat] = useState(true);
   const [orientLandscape, setOrientLandscape] = useState(true);
   const [userStyles, setUserStyles] = useState(['black', 'yellow']);
+  const [userHasTyped, setUserHasTyped] = useState('#302e2e');
 
   useEffect(() => {
     currentViewIsLandscape = false;
@@ -62,6 +63,11 @@ export default function App() {
 
   const inputHandler = (enteredText) => {
     setEnteredText(enteredText);
+    if (enteredText) {
+      setUserHasTyped('green');
+    } else {
+      setUserHasTyped('#302e2e');
+    }
   };
 
   const clearPressHandler = () => {
@@ -186,6 +192,7 @@ export default function App() {
                   toggleStyle={toggleStyle}
                   bg={userBgColor}
                   txt={userTxtColor}
+                  userHasTyped={userHasTyped}
                 />
               </View>
             </View>

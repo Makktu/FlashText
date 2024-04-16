@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 
 export default function Options({
   startDisplay,
@@ -14,6 +14,7 @@ export default function Options({
   toggleStyle,
   bg,
   txt,
+  userHasTyped,
 }) {
   let showingBgColor, showingTxtColor;
   let firstBgLetter = bg.charAt(0).toUpperCase();
@@ -23,33 +24,44 @@ export default function Options({
   showingBgColor = firstBgLetter + remainingBgLetters;
   showingTxtColor = firstTxtLetter + remainingTxtLetters;
   if (showingBgColor[0] == '#') showingBgColor = 'Pink';
-  console.log(showingTxtColor, showingBgColor);
 
   return (
     <View style={styles.container}>
       <View style={styles.goButtonContainer}>
-        <Button mode='contained' style={styles.goButton} onPress={startDisplay}>
-          GO!
+        <Button
+          mode='contained'
+          style={{ backgroundColor: userHasTyped }}
+          onPress={startDisplay}
+        >
+          {userHasTyped == 'green' ? 'GO!' : ' '}
         </Button>
       </View>
-      <View style={styles.infoContainer}>
-        <Text style={styles.infoText}>Tap Buttons to Change Options</Text>
-      </View>
+      <Button onPress={toggleStyle} style={{ backgroundColor: bg }}>
+        <Text style={{ color: txt, fontWeight: 'bold', fontSize: 20 }}>
+          Style: {showingTxtColor} on {showingBgColor}
+        </Text>
+      </Button>
       <Button onPress={displayTimeHandler} style={styles.button}>
         Time per word: {displayTime}s
       </Button>
-      <Button onPress={toggleStyle} style={{ backgroundColor: bg }}>
-        <Text style={{ color: txt, fontWeight: 'bold' }}>
-          Style: {showingTxtColor} on {showingBgColor}
+      <Button onPress={toggleUserOrientation} style={styles.button}>
+        <Text style={styles.buttonText}>
+          Showing In: {orientIn ? 'LANDSCAPE' : 'PORTRAIT'}
         </Text>
       </Button>
       <Button onPress={repeatHandler} color={'black'} style={styles.button}>
         {repeat ? 'Message Repeat: YES' : 'Message Repeat: NO'}
       </Button>
-      <Button onPress={toggleUserOrientation} style={styles.button}>
-        Display: {orientIn ? 'LANDSCAPE' : 'PORTRAIT'}
-      </Button>
-
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Button style={styles.specialBtn}>Restore Defaults</Button>
+        <Button style={styles.specialBtn}>Clear Input</Button>
+      </View>
       <Button style={styles.button}>Privacy & About</Button>
     </View>
   );
@@ -66,16 +78,20 @@ const styles = StyleSheet.create({
     },
     margin: 4,
     backgroundColor: '#e1e6f4',
-    fontSize: 24,
     padding: 6,
     height: 60,
     width: 300,
+  },
+  buttonText: {
+    fontWeight: 'bold',
+    fontSize: 18,
   },
   goButtonContainer: {
     marginBottom: 8,
   },
   goButton: {
     height: 40,
+    backgroundColor: 'green',
   },
   infoContainer: {
     alignItems: 'center',
@@ -88,5 +104,10 @@ const styles = StyleSheet.create({
   },
   lightButton: {
     backgroundColor: 'white',
+  },
+  specialBtn: {
+    backgroundColor: 'gray',
+    width: 140,
+    marginRight: 4,
   },
 });

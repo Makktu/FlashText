@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { Searchbar } from 'react-native-paper';
+import { Searchbar, TextInput } from 'react-native-paper';
 import React from 'react';
 
 export default function Input({
@@ -8,7 +8,7 @@ export default function Input({
 }) {
   return (
     <View style={styles.container}>
-      <Searchbar
+      {/* <Searchbar
         style={styles.input}
         value={enteredText}
         inputStyle={{
@@ -18,6 +18,21 @@ export default function Input({
         }}
         mode='bar'
         elevation={5}
+        onChangeText={inputHandler}
+      /> */}
+      <TextInput
+        type='outlined'
+        multiline={true}
+        textColor='white'
+        style={{
+          width: '100%',
+          backgroundColor: '#83a581',
+          height: '100',
+          fontSize: 28,
+          fontWeight: 'bold',
+        }}
+        label='Enter Message'
+        value={enteredText}
         onChangeText={inputHandler}
       />
     </View>

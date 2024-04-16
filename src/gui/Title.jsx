@@ -14,14 +14,14 @@ const styles = StyleSheet.create({
   container: {
     height: 100,
     width: '100%',
-    backgroundColor: 'cyan',
+    backgroundColor: '#181919',
     borderRadius: 16,
     padding: 30,
     alignItems: 'center',
     justifyContent: 'center',
   },
   text: {
-    color: 'black',
+    color: '#f3ecec',
     fontSize: 30,
     fontWeight: 'bold',
   },
