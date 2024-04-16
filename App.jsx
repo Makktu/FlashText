@@ -98,10 +98,8 @@ export default function App() {
   const returnTap = () => {
     // default screen displays when returning from display screens
     setShowingFlash(false);
-    // always return to portrait orientation if on landscape
+    // always return to portrait orientation (have to change for iPad version)
     changeScreenOrientation();
-    // and restore the StatusBar
-    // StatusBar.setHidden(false);
   };
 
   const toggleColors = () => {
