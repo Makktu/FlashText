@@ -7,6 +7,7 @@ import Title from './src/gui/Title';
 import Input from './src/components/Input';
 import Options from './src/components/Options';
 import DisplayFlashMessage from './src/screens/DisplayFlashMessage';
+import { PaperProvider, useTheme } from 'react-native-paper';
 
 export default function App() {
   const [enteredText, setEnteredText] = useState('');
@@ -18,6 +19,8 @@ export default function App() {
   const [orientLandscape, setOrientLandscape] = useState(true);
   const [userStyles, setUserStyles] = useState(['black', 'yellow']);
   const [userHasTyped, setUserHasTyped] = useState('#302e2e');
+
+  const theme = useTheme();
 
   useEffect(() => {
     currentViewIsLandscape = false;
@@ -163,39 +166,45 @@ export default function App() {
     )) ||
     (!showingFlash && (
       <>
-        <StatusBar style='light' hidden={false} />
-        <SafeAreaProvider>
-          <SafeAreaView style={styles.container}>
-            <View>
+        <PaperProvider>
+          <StatusBar style='light' hidden={false} />
+          <SafeAreaProvider
+            style={
+              ([styles.container], { backgroundColor: 'rgb(71, 12, 122)' })
+            }
+          >
+            <SafeAreaView>
               <View>
-                <Title />
+                <View>
+                  <Title />
+                </View>
+                <View>
+                  <Input
+                    enteredText={enteredText}
+                    inputHandler={inputHandler}
+                    clearPressHandler={clearPressHandler}
+                  />
+                </View>
+                <View style={styles.optionsContainer}>
+                  <Options
+                    startDisplay={startDisplay}
+                    displayTimeHandler={displayTimeHandler}
+                    repeatHandler={repeatHandler}
+                    displayTime={userTime}
+                    repeat={repeat}
+                    orientIn={orientLandscape}
+                    toggleUserOrientation={toggleUserOrientation}
+                    toggleColors={toggleColors}
+                    toggleStyle={toggleStyle}
+                    bg={userBgColor}
+                    txt={userTxtColor}
+                    userHasTyped={userHasTyped}
+                  />
+                </View>
               </View>
-              <View>
-                <Input
-                  enteredText={enteredText}
-                  inputHandler={inputHandler}
-                  clearPressHandler={clearPressHandler}
-                />
-              </View>
-              <View style={styles.optionsContainer}>
-                <Options
-                  startDisplay={startDisplay}
-                  displayTimeHandler={displayTimeHandler}
-                  repeatHandler={repeatHandler}
-                  displayTime={userTime}
-                  repeat={repeat}
-                  orientIn={orientLandscape}
-                  toggleUserOrientation={toggleUserOrientation}
-                  toggleColors={toggleColors}
-                  toggleStyle={toggleStyle}
-                  bg={userBgColor}
-                  txt={userTxtColor}
-                  userHasTyped={userHasTyped}
-                />
-              </View>
-            </View>
-          </SafeAreaView>
-        </SafeAreaProvider>
+            </SafeAreaView>
+          </SafeAreaProvider>
+        </PaperProvider>
       </>
     ))
   );
@@ -204,7 +213,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#040404',
+    // backgroundColor: '#040404',
+    // backgroundColor: theme.colors.primary,
     alignItems: 'center',
     // justifyContent: 'center',
   },

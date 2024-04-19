@@ -26,7 +26,7 @@ export default function Input({
         textColor='white'
         style={{
           width: '100%',
-          backgroundColor: '#83a581',
+          backgroundColor: 'rgb(58, 15, 92)',
           height: '100',
           fontSize: 28,
           fontWeight: 'bold',
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     height: 200,
     width: 300,
     borderRadius: 20,
-    backgroundColor: '#073044',
+    backgroundColor: 'rgb(44, 0, 81)',
     color: 'white',
   },
 });

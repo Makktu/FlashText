@@ -29,11 +29,12 @@ export default function Options({
     <View style={styles.container}>
       <View style={styles.goButtonContainer}>
         <Button
-          mode='contained'
-          style={{ backgroundColor: userHasTyped }}
+          style={(styles.button, { backgroundColor: userHasTyped })}
           onPress={startDisplay}
         >
-          {userHasTyped == 'green' ? 'GO!' : ' '}
+          <Text style={styles.buttonText}>
+            {userHasTyped == 'green' ? 'GO!' : 'Type a message!'}
+          </Text>
         </Button>
       </View>
       <Button onPress={toggleStyle} style={{ backgroundColor: bg }}>
@@ -42,7 +43,7 @@ export default function Options({
         </Text>
       </Button>
       <Button onPress={displayTimeHandler} style={styles.button}>
-        Time per word: {displayTime}s
+        <Text style={styles.buttonText}>Time per word: {displayTime}s</Text>
       </Button>
       <Button onPress={toggleUserOrientation} style={styles.button}>
         <Text style={styles.buttonText}>
@@ -50,7 +51,9 @@ export default function Options({
         </Text>
       </Button>
       <Button onPress={repeatHandler} color={'black'} style={styles.button}>
-        {repeat ? 'Message Repeat: YES' : 'Message Repeat: NO'}
+        <Text style={styles.buttonText}>
+          {repeat ? 'Message Repeat: YES' : 'Message Repeat: NO'}
+        </Text>
       </Button>
       <View
         style={{
@@ -62,7 +65,9 @@ export default function Options({
         <Button style={styles.specialBtn}>Restore Defaults</Button>
         <Button style={styles.specialBtn}>Clear Input</Button>
       </View>
-      <Button style={styles.button}>Privacy & About</Button>
+      <Button style={styles.button}>
+        <Text style={styles.buttonText}>Privacy & About</Text>
+      </Button>
     </View>
   );
 }
@@ -77,14 +82,16 @@ const styles = StyleSheet.create({
       colors: { primary: '#f4efef' },
     },
     margin: 4,
-    backgroundColor: '#e1e6f4',
+    backgroundColor: '#rgb(44, 0, 81)',
     padding: 6,
+    marginTop: 12,
     height: 60,
     width: 300,
   },
   buttonText: {
     fontWeight: 'bold',
     fontSize: 18,
+    color: 'white',
   },
   goButtonContainer: {
     marginBottom: 8,
@@ -103,7 +110,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   lightButton: {
-    backgroundColor: 'white',
+    backgroundColor: 'rgb(44, 0, 81)',
   },
   specialBtn: {
     backgroundColor: 'gray',

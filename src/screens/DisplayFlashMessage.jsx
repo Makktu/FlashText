@@ -13,8 +13,6 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 
-import { Audio } from 'expo-av';
-
 export default function DisplayFlashMessage({
   height,
   width,
@@ -63,10 +61,8 @@ export default function DisplayFlashMessage({
         <Animated.View
           style={{
             opacity: animatedValue,
-            // borderColor: '#aaff00',
-            // borderWidth: 2,
-            height: '100%',
-            width: '100%',
+            height: height,
+            width: width,
             alignItems: 'center',
             justifyContent: 'center',
           }}
@@ -101,16 +97,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    // width: '100%',
-    // height: '100%',
-    // borderColor: 'red',
-    // borderWidth: 2,
   },
   text: {
-    // height: '100%',
-    // width: '100%',
-    // borderColor: '#09b9f4',
-    // borderWidth: 2,
     fontSize: 580,
   },
 });
