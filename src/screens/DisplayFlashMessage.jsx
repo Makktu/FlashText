@@ -30,7 +30,6 @@ export default function DisplayFlashMessage({
 
   useEffect(() => {
     StatusBar.setHidden(true);
-    console.log(userBg, userTxt);
   }, []);
 
   const FlashView = ({ children }) => {
@@ -61,8 +60,8 @@ export default function DisplayFlashMessage({
         <Animated.View
           style={{
             opacity: animatedValue,
-            height: height,
-            width: width,
+            // height: height,
+            // width: width,
             alignItems: 'center',
             justifyContent: 'center',
           }}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -52,6 +52,12 @@ export default function App() {
   let screenWidth, screenHeight;
   const displayTimeAmounts = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
 
+  // ________________________________ debug info
+  // _________________________________get user screen dimensions
+  screenWidth = Dimensions.get('window').width;
+  screenHeight = Dimensions.get('window').height;
+  console.log(`User Screen: ${screenWidth} WIDTH / ${screenHeight} HEIGHT`);
+
   async function changeScreenOrientation() {
     if (orientLandscape && currentViewIsLandscape) {
       ScreenOrientation.lockAsync(
@@ -79,19 +85,15 @@ export default function App() {
 
   const displayTimeHandler = () => {
     // displayTime will cycle through the array
-    if (displayMode == 'Word Flash') {
-      displayTimeAmounts.forEach((amount, index) => {
-        if (amount == userTime) {
-          if (index == displayTimeAmounts.length - 1) {
-            setUserTime(displayTimeAmounts[0]);
-          } else {
-            setUserTime(displayTimeAmounts[index + 1]);
-          }
+    displayTimeAmounts.forEach((amount, index) => {
+      if (amount == userTime) {
+        if (index == displayTimeAmounts.length - 1) {
+          setUserTime(displayTimeAmounts[0]);
+        } else {
+          setUserTime(displayTimeAmounts[index + 1]);
         }
-      });
-    } else {
-      // ! setTickerTime(tickerSpeeds[???])
-    }
+      }
+    });
   };
 
   const repeatHandler = () => {
@@ -128,11 +130,6 @@ export default function App() {
       console.log('nowt there');
       return;
     }
-    // ________________________________ debug info
-    // _________________________________get user screen dimensions
-    // screenWidth = Dimensions.get('window').width;
-    // screenHeight = Dimensions.get('window').height;
-    // console.log(`User Screen: ${screenWidth} WIDTH / ${screenHeight} HEIGHT`);
     setMessageToDisplay(splitMessageForFlash(enteredText));
     setShowingFlash(true);
     if (orientLandscape) {
@@ -168,6 +165,7 @@ export default function App() {
       <>
         <PaperProvider>
           <StatusBar style='light' hidden={false} />
+
           <SafeAreaProvider
             style={
               ([styles.container], { backgroundColor: 'rgb(71, 12, 122)' })
@@ -183,6 +181,7 @@ export default function App() {
                     enteredText={enteredText}
                     inputHandler={inputHandler}
                     clearPressHandler={clearPressHandler}
+                    thisWidth={screenWidth}
                   />
                 </View>
                 <View style={styles.optionsContainer}>
@@ -213,10 +212,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#040404',
-    // backgroundColor: theme.colors.primary,
+    textAlign: 'auto',
     alignItems: 'center',
-    // justifyContent: 'center',
   },
   textSmall: {
     color: 'orangered',
@@ -225,9 +222,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  // titleContainer: {
-  //   position: 'absolute',
-  //   top: 50,
-  //   flex: 1,
-  // },
 });

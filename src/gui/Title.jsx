@@ -1,10 +1,15 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import { Image } from 'expo-image';
 
 export default function Title() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Flash Messenger</Text>
+      <Image
+        style={styles.image}
+        source='/Users/johnmcnamara/Desktop/Projects/flasher/assets/flash_msg_logo1.png'
+      />
+      <Text style={styles.text}>FlashTexter</Text>
     </View>
   );
 }
@@ -19,8 +24,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    color: 'rgb(169, 134, 203)',
-    fontSize: 40,
+    // color: 'rgb(169, 134, 203)',
+    color: 'white',
+    fontSize: 60,
     fontWeight: 'bold',
+    position: 'absolute',
+    top: 18,
+  },
+  image: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: '#0553',
   },
 });

@@ -1,39 +1,35 @@
 import { StyleSheet, View } from 'react-native';
-import { Searchbar, TextInput } from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 import React from 'react';
 
 export default function Input({
   enteredText = 'Enter Your Message',
   inputHandler,
+  thisWidth,
 }) {
+  console.log(thisWidth);
   return (
     <View style={styles.container}>
-      {/* <Searchbar
-        style={styles.input}
-        value={enteredText}
-        inputStyle={{
-          fontSize: 22,
-          textDecorationStyle: 'solid',
-          color: 'white',
-        }}
-        mode='bar'
-        elevation={5}
-        onChangeText={inputHandler}
-      /> */}
       <TextInput
         type='outlined'
-        multiline={true}
+        multiline={false}
         textColor='white'
         style={{
-          width: '100%',
+          width: thisWidth,
           backgroundColor: 'rgb(58, 15, 92)',
-          height: '100',
+          height: 100,
           fontSize: 28,
           fontWeight: 'bold',
+          textAlign: 'auto',
         }}
         label='Enter Message'
         value={enteredText}
         onChangeText={inputHandler}
+        mode='outlined'
+        placeholder='ENTER MESSAGE'
+        selectionColor='white'
+        activeOutlineColor='white'
+        dense={true}
       />
     </View>
   );
