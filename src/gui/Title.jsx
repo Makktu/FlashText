@@ -2,13 +2,12 @@ import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { Image } from 'expo-image';
 
+const logoImg = require('./../../assets/flash_msg_logo1.png');
+
 export default function Title() {
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source='/Users/johnmcnamara/Desktop/Projects/flasher/assets/flash_msg_logo1.png'
-      />
+      <Image style={styles.image} source={logoImg} />
       <Text style={styles.text}>FlashTexter</Text>
     </View>
   );
