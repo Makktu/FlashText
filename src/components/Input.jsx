@@ -11,18 +11,17 @@ export default function Input({
   return (
     <View style={styles.container}>
       <TextInput
-        type='outlined'
-        multiline={false}
+        multiline={true}
         textColor='white'
         style={{
           width: thisWidth,
-          backgroundColor: 'rgb(58, 15, 92)',
+          backgroundColor: 'rgb(36, 6, 59)',
           height: 100,
           fontSize: 28,
           fontWeight: 'bold',
           textAlign: 'auto',
         }}
-        label='Enter Message'
+        label='Enter Message Here!'
         value={enteredText}
         onChangeText={inputHandler}
         mode='outlined'

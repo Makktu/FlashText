@@ -11,7 +11,6 @@ import { PaperProvider, useTheme } from 'react-native-paper';
 
 export default function App() {
   const [enteredText, setEnteredText] = useState('');
-  const [displayMode, setDisplayMode] = useState('Word Flash');
   const [messageToDisplay, setMessageToDisplay] = useState();
   const [showingFlash, setShowingFlash] = useState(false);
   const [userTime, setUserTime] = useState(0.75);
@@ -50,7 +49,9 @@ export default function App() {
   let currentViewIsLandscape = false;
   let currentBg = userStyles[0];
   let screenWidth, screenHeight;
-  const displayTimeAmounts = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
+  const displayTimeAmounts = [
+    0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5,
+  ];
 
   // ________________________________ debug info
   // _________________________________get user screen dimensions
@@ -83,15 +84,24 @@ export default function App() {
     setEnteredText('');
   };
 
-  const displayTimeHandler = () => {
-    // displayTime will cycle through the array
+  const minusTimeHandler = () => {
+    displayTimeHandler(0);
+  };
+  const plusTimeHandler = () => {
+    displayTimeHandler(1);
+  };
+
+  const displayTimeHandler = (plusOrMinus = 1) => {
     displayTimeAmounts.forEach((amount, index) => {
       if (amount == userTime) {
-        if (index == displayTimeAmounts.length - 1) {
-          setUserTime(displayTimeAmounts[0]);
-        } else {
+        // check plus-case and act accordingly
+        if (plusOrMinus == 1 && index !== displayTimeAmounts.length - 1) {
           setUserTime(displayTimeAmounts[index + 1]);
         }
+        if (plusOrMinus == 0 && index !== 0) {
+          setUserTime(displayTimeAmounts[index - 1]);
+        }
+        return;
       }
     });
   };
@@ -187,7 +197,8 @@ export default function App() {
                 <View style={styles.optionsContainer}>
                   <Options
                     startDisplay={startDisplay}
-                    displayTimeHandler={displayTimeHandler}
+                    minusTimeHandler={minusTimeHandler}
+                    plusTimeHandler={plusTimeHandler}
                     repeatHandler={repeatHandler}
                     displayTime={userTime}
                     repeat={repeat}

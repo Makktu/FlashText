@@ -80,7 +80,7 @@ export default function DisplayFlashMessage({
             <Text
               adjustsFontSizeToFit={true}
               numberOfLines={1}
-              style={[styles.text, { color: userTxt, padding: 5 }]}
+              style={[styles.text, { color: userTxt, padding: 2 }]}
             >
               {message[nextWord]}
             </Text>
@@ -98,6 +98,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: 580,
+    fontSize: 780,
   },
 });

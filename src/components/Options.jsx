@@ -5,7 +5,8 @@ import React from 'react';
 
 export default function Options({
   startDisplay,
-  displayTimeHandler,
+  minusTimeHandler,
+  plusTimeHandler,
   repeatHandler,
   displayTime,
   repeat,
@@ -39,12 +40,24 @@ export default function Options({
       </View>
       <Button onPress={toggleStyle} style={{ backgroundColor: bg }}>
         <Text style={{ color: txt, fontWeight: 'bold', fontSize: 20 }}>
-          Style: {showingTxtColor} on {showingBgColor}
+          {showingTxtColor} on {showingBgColor}
         </Text>
       </Button>
-      <Button onPress={displayTimeHandler} style={styles.button}>
+      <View style={[styles.timeBtnContainer]}>
+        <Button
+          onPress={minusTimeHandler}
+          style={[styles.button, { width: 28, marginRight: 30 }]}
+        >
+          <Text style={styles.buttonSign}>-</Text>
+        </Button>
         <Text style={styles.buttonText}>Time per word: {displayTime}s</Text>
-      </Button>
+        <Button
+          onPress={plusTimeHandler}
+          style={[styles.button, { width: 28 }]}
+        >
+          <Text style={styles.buttonSign}>+</Text>
+        </Button>
+      </View>
       <Button onPress={toggleUserOrientation} style={styles.button}>
         <Text style={styles.buttonText}>
           Showing In: {orientIn ? 'LANDSCAPE' : 'PORTRAIT'}
@@ -93,6 +106,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
   },
+  buttonSign: {
+    fontSize: 30,
+  },
   goButtonContainer: {
     marginBottom: 8,
   },
@@ -116,5 +132,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'gray',
     width: 140,
     marginRight: 4,
+  },
+  timeBtnContainer: {
+    flexDirection: 'row',
+    height: 60,
+    width: 300,
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
   },
 });
