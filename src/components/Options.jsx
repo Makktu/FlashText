@@ -44,17 +44,13 @@ export default function Options({
         </Text>
       </Button>
       <View style={[styles.timeBtnContainer]}>
-        <Button
-          onPress={minusTimeHandler}
-          style={[styles.button, { width: 28, marginRight: 30 }]}
-        >
+        <Button onPress={minusTimeHandler} style={[styles.altButton]}>
           <Text style={styles.buttonSign}>-</Text>
         </Button>
-        <Text style={styles.buttonText}>Time per word: {displayTime}s</Text>
-        <Button
-          onPress={plusTimeHandler}
-          style={[styles.button, { width: 28 }]}
-        >
+        <Text style={[styles.buttonText, { marginHorizontal: 12 }]}>
+          Time per word: {displayTime}s
+        </Text>
+        <Button onPress={plusTimeHandler} style={[styles.altButton]}>
           <Text style={styles.buttonSign}>+</Text>
         </Button>
       </View>
@@ -100,6 +96,11 @@ const styles = StyleSheet.create({
     marginTop: 12,
     height: 60,
     width: 300,
+  },
+  altButton: {
+    backgroundColor: '#490941',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonText: {
     fontWeight: 'bold',

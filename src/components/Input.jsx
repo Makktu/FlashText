@@ -14,7 +14,7 @@ export default function Input({
         multiline={true}
         textColor='white'
         style={{
-          width: thisWidth,
+          width: '100%',
           backgroundColor: 'rgb(36, 6, 59)',
           height: 100,
           fontSize: 28,
