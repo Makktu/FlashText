@@ -11,12 +11,12 @@ export default function Input({
   return (
     <View style={styles.container}>
       <TextInput
-        multiline={true}
+        multiline={false}
         textColor='white'
         style={{
           width: '100%',
           backgroundColor: 'rgb(36, 6, 59)',
-          height: 100,
+          height: 70,
           fontSize: 28,
           fontWeight: 'bold',
           textAlign: 'auto',
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
   },
   input: {
-    height: 200,
+    height: 100,
     width: 300,
     borderRadius: 20,
     backgroundColor: 'rgb(44, 0, 81)',

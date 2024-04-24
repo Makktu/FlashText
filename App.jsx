@@ -7,6 +7,7 @@ import Title from './src/gui/Title';
 import Input from './src/components/Input';
 import Options from './src/components/Options';
 import DisplayFlashMessage from './src/screens/DisplayFlashMessage';
+import PrivacyAbout from './src/screens/PrivacyAbout';
 import { PaperProvider, useTheme } from 'react-native-paper';
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
   const [orientLandscape, setOrientLandscape] = useState(true);
   const [userStyles, setUserStyles] = useState(['black', 'yellow']);
   const [userHasTyped, setUserHasTyped] = useState('#302e2e');
+  const [showingPrivacyAbout, setShowingPrivacyAbout] = useState(false);
 
   const theme = useTheme();
 
@@ -111,14 +113,22 @@ export default function App() {
   };
 
   const returnTap = () => {
+    if (setShowingPrivacyAbout) {
+      setShowingPrivacyAbout(false);
+      return;
+    }
     // default screen displays when returning from display screens
-    setShowingFlash(false);
     // always return to portrait orientation (have to change for iPad version)
+    setShowingFlash(false);
     changeScreenOrientation();
   };
 
   const toggleColors = () => {
     console.log('Color toggler...');
+  };
+
+  const clearInput = () => {
+    setEnteredText('');
   };
 
   const toggleStyle = () => {
@@ -156,7 +166,17 @@ export default function App() {
     setOrientLandscape(!orientLandscape);
   };
 
+  const privacyAbout = () => {
+    console.log('connected');
+    setShowingPrivacyAbout(true);
+  };
+
   return (
+    (showingPrivacyAbout && (
+      <SafeAreaProvider>
+        <PrivacyAbout returnTap={returnTap} />
+      </SafeAreaProvider>
+    )) ||
     (showingFlash && (
       <SafeAreaProvider>
         <DisplayFlashMessage
@@ -209,6 +229,8 @@ export default function App() {
                     bg={userBgColor}
                     txt={userTxtColor}
                     userHasTyped={userHasTyped}
+                    clearInput={clearInput}
+                    privacyAbout={privacyAbout}
                   />
                 </View>
               </View>

@@ -8,7 +8,7 @@ export default function Title() {
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={logoImg} />
-      <Text style={styles.text}>FlashTexter</Text>
+      <Text style={styles.text}>TextFlash</Text>
     </View>
   );
 }
