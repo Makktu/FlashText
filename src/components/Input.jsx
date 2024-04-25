@@ -7,19 +7,19 @@ export default function Input({
   inputHandler,
   thisWidth,
 }) {
-  console.log(thisWidth);
   return (
     <View style={styles.container}>
       <TextInput
-        multiline={false}
+        // multiline={true}
         textColor='white'
         style={{
           width: '100%',
           backgroundColor: 'rgb(36, 6, 59)',
-          height: 70,
-          fontSize: 28,
+          fontSize: 26,
+          lineHeight: 29,
           fontWeight: 'bold',
           textAlign: 'auto',
+          height: 80,
         }}
         label='Enter Message Here!'
         value={enteredText}
@@ -28,7 +28,8 @@ export default function Input({
         placeholder='ENTER MESSAGE'
         selectionColor='white'
         activeOutlineColor='white'
-        dense={true}
+        dense={false}
+        keyboardAppearance='default'
       />
     </View>
   );
@@ -38,15 +39,16 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
+    // width: '100%',
     marginTop: 10,
     marginHorizontal: 4,
   },
-  input: {
-    height: 100,
-    width: 300,
-    borderRadius: 20,
-    backgroundColor: 'rgb(44, 0, 81)',
-    color: 'white',
-  },
+  // input: {
+  //   height: 100,
+  //   width: 300,
+  //   borderRadius: 20,
+  //   backgroundColor: 'rgb(44, 0, 81)',
+  //   color: 'white',
+  // },
 });

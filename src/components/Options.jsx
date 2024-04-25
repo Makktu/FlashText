@@ -37,7 +37,7 @@ export default function Options({
         onPress={startDisplay}
       >
         <Text style={styles.buttonText}>
-          {userHasTyped == 'green' ? 'GO!' : ' '}
+          {userHasTyped == 'green' ? 'START !' : ' '}
         </Text>
       </Button>
       {/* _________________ */}
@@ -54,19 +54,19 @@ export default function Options({
       {/* TIME PICKER BUTTON */}
       <View style={styles.timeBtnContainer}>
         <TouchableOpacity onPress={minusTimeHandler}>
-          <AntDesign name='minussquare' size={48} color='rgb(204, 194, 213)' />
+          <AntDesign name='minussquare' size={48} color='white' />
         </TouchableOpacity>
-        <View>
+        <View style={styles.timeTextContainer}>
           <Text
             style={{
-              fontSize: 20,
+              fontSize: 28,
               fontWeight: 'bold',
               color: 'white',
               marginHorizontal: 4,
             }}
           >
-            Word: {displayTime}
-            {displayTime == 1 ? ' second' : ' seconds'}
+            {/* Flashtime{'\n'} */}
+            {displayTime}s{/* {displayTime == 1 ? ' second' : ' seconds'} */}
           </Text>
         </View>
         <TouchableOpacity onPress={plusTimeHandler}>
@@ -107,15 +107,16 @@ const styles = StyleSheet.create({
     },
     margin: 4,
     // backgroundColor: '#rgb(44, 0, 81)',
-    backgroundColor: '#a4118e',
+    backgroundColor: '#6523a0',
+    // backgroundColor: '#a4118e',
     padding: 6,
     marginTop: 12,
     height: 52,
     width: 300,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: '#faf6f6',
   },
   timeButton: {
     height: 70,
@@ -142,16 +143,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-evenly',
     height: 64,
-    width: 320,
 
     // borderRadius: 240,
     // backgroundColor: '#a4118e',
   },
-  timeText: {
-    // alignItems: 'center',
-    // maxWidth: 250,
-    // minWidth: 250,
-    // marginHorizontal: 12,
-    // justifyContent: 'center',
+  timeTextContainer: {
+    minWidth: 180,
+    maxWidth: 180,
+    alignItems: 'center',
   },
 });

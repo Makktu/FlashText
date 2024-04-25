@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React from 'react';
+import Title from '../gui/Title';
 
 export default function PrivacyAbout({ returnTap }) {
   return (
@@ -13,20 +14,23 @@ export default function PrivacyAbout({ returnTap }) {
         <Text style={styles.text}>
           The only people who see your messages are those you show them to.
         </Text>
-        <Text style={styles.heading}>About</Text>
-
         <Text style={styles.text}>
-          You own this app forever. No registering for anything. No logging into
-          anything. No nags to upgrade to a better version.
+          You own this app forever. No registration, no logging in, no nags to
+          upgrade.{'\n'}
         </Text>
-        <Text style={styles.text}>Developed by John McNamara</Text>
+        <Text style={styles.heading}>About TextFlash</Text>
+        <Text style={styles.text}>Developer: John McNamara</Text>
         <Text style={styles.text}>
-          Coming in Version 2: Tickertape-style display options.
-          User-customisable colours. Multiple colour styles in messages.
-          Different fonts. Ability to save favourite words & phrases & emojis.
-          Educational support for parents and teachers. ETA: August 2024.
+          Coming in Version 2:{'\n'}- Tickertape & scrolling options
+          {'\n'}- User-customisable colours & fonts.{'\n'}- Ability to save
+          favourite words & phrases & emojis.{'\n'}- Education packs for parents
+          and teachers.{'\n'}
+          {'\n'}ETA: Q3 2024.
         </Text>
-        <Text style={styles.text}>TAP ANYWHERE TO CLOSE THIS SCREEN</Text>
+        <Text style={styles.heading}>TAP ANYWHERE TO GO BACK</Text>
+      </View>
+      <View style={styles.titleContainer}>
+        <Title />
       </View>
     </TouchableOpacity>
   );
@@ -37,19 +41,24 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     height: '100%',
-    backgroundColor: 'yellow',
+    backgroundColor: 'rgb(71, 12, 122)',
   },
   privacyAndAbout: {
     marginTop: 60,
   },
   text: {
-    fontSize: 18,
+    fontSize: 16,
     marginVertical: 4,
     marginHorizontal: 16,
+    color: 'white',
   },
   heading: {
-    fontSize: 28,
+    fontSize: 22,
     marginVertical: 4,
     marginHorizontal: 16,
+    color: 'yellow',
+  },
+  titleContainer: {
+    margin: 38,
   },
 });

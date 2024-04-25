@@ -9,6 +9,7 @@ import Options from './src/components/Options';
 import DisplayFlashMessage from './src/screens/DisplayFlashMessage';
 import PrivacyAbout from './src/screens/PrivacyAbout';
 import { PaperProvider, useTheme } from 'react-native-paper';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function App() {
   const [enteredText, setEnteredText] = useState('');
@@ -18,7 +19,7 @@ export default function App() {
   const [repeat, setRepeat] = useState(true);
   const [orientLandscape, setOrientLandscape] = useState(true);
   const [userStyles, setUserStyles] = useState(['black', 'yellow']);
-  const [userHasTyped, setUserHasTyped] = useState('#302e2e');
+  const [userHasTyped, setUserHasTyped] = useState('rgb(71, 12, 122)');
   const [showingPrivacyAbout, setShowingPrivacyAbout] = useState(false);
 
   const theme = useTheme();
@@ -78,7 +79,7 @@ export default function App() {
     if (enteredText) {
       setUserHasTyped('green');
     } else {
-      setUserHasTyped('#302e2e');
+      setUserHasTyped('rgb(71, 12, 122)');
     }
   };
 
@@ -126,7 +127,7 @@ export default function App() {
 
   const clearInput = () => {
     setEnteredText('');
-    setUserHasTyped('#302e2e');
+    setUserHasTyped('rgb(71, 12, 122)');
   };
 
   const toggleStyle = () => {
@@ -191,14 +192,16 @@ export default function App() {
     )) ||
     (!showingFlash && !showingPrivacyAbout && (
       <>
+        <LinearGradient
+          //     // Background Linear Gradient
+          //     // colors={['#470c7a', 'transparent']}
+          colors={['#2a0c44', '#451d6b', '#260c3d']}
+          style={styles.background}
+        />
         <PaperProvider>
           <StatusBar style='light' hidden={false} />
 
-          <SafeAreaProvider
-            style={
-              ([styles.container], { backgroundColor: 'rgb(71, 12, 122)' })
-            }
-          >
+          <SafeAreaProvider style={[styles.container]}>
             <SafeAreaView>
               <View>
                 <View>
@@ -244,7 +247,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     textAlign: 'auto',
-    alignItems: 'center',
+    // alignItems: 'center',
+    // borderWidth: 4,
+    // borderColor: '#a4118e',
+  },
+  background: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: '100%',
   },
   textSmall: {
     color: 'orangered',
