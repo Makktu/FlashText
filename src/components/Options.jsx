@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
 import { AntDesign } from '@expo/vector-icons';
 import React from 'react';
@@ -37,7 +37,7 @@ export default function Options({
         onPress={startDisplay}
       >
         <Text style={styles.buttonText}>
-          {userHasTyped == 'green' ? 'GO!' : 'Type a message!'}
+          {userHasTyped == 'green' ? 'GO!' : ' '}
         </Text>
       </Button>
       {/* _________________ */}
@@ -53,17 +53,25 @@ export default function Options({
       {/* _________________ */}
       {/* TIME PICKER BUTTON */}
       <View style={styles.timeBtnContainer}>
-        <Button onPress={minusTimeHandler} style={styles.timeButton}>
-          <AntDesign name='minussquare' size={42} color='rgb(247, 243, 250)' />
-        </Button>
+        <TouchableOpacity onPress={minusTimeHandler}>
+          <AntDesign name='minussquare' size={48} color='rgb(204, 194, 213)' />
+        </TouchableOpacity>
         <View>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>
-            {displayTime} {displayTime == 1 ? 'second' : 'seconds'}
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: 'bold',
+              color: 'white',
+              marginHorizontal: 4,
+            }}
+          >
+            Word: {displayTime}
+            {displayTime == 1 ? ' second' : ' seconds'}
           </Text>
         </View>
-        <Button onPress={plusTimeHandler} style={styles.timeButton}>
-          <AntDesign name='plussquare' size={42} color='#f8f1f1' />
-        </Button>
+        <TouchableOpacity onPress={plusTimeHandler}>
+          <AntDesign name='plussquare' size={48} color='#f8f1f1' />
+        </TouchableOpacity>
       </View>
       {/* _________________ */}
       {/* OTHER */}
@@ -106,12 +114,16 @@ const styles = StyleSheet.create({
     width: 300,
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'black',
   },
   timeButton: {
-    height: 60,
-    width: 30,
+    height: 70,
+    width: 70,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'white',
   },
   buttonText: {
     fontWeight: 'bold',
@@ -128,8 +140,10 @@ const styles = StyleSheet.create({
   timeBtnContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     height: 64,
+    width: 320,
+
     // borderRadius: 240,
     // backgroundColor: '#a4118e',
   },

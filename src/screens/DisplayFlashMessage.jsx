@@ -60,8 +60,8 @@ export default function DisplayFlashMessage({
         <Animated.View
           style={{
             opacity: animatedValue,
-            // height: height,
-            // width: width,
+            // height: '100%',
+            // width: '100%',
             alignItems: 'center',
             justifyContent: 'center',
           }}
@@ -98,6 +98,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: 780,
+    fontSize: 1000,
   },
 });

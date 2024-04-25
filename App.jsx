@@ -113,10 +113,7 @@ export default function App() {
   };
 
   const returnTap = () => {
-    if (setShowingPrivacyAbout) {
-      setShowingPrivacyAbout(false);
-      return;
-    }
+    setShowingPrivacyAbout(false);
     // default screen displays when returning from display screens
     // always return to portrait orientation (have to change for iPad version)
     setShowingFlash(false);
@@ -129,6 +126,7 @@ export default function App() {
 
   const clearInput = () => {
     setEnteredText('');
+    setUserHasTyped('#302e2e');
   };
 
   const toggleStyle = () => {
@@ -191,7 +189,7 @@ export default function App() {
         />
       </SafeAreaProvider>
     )) ||
-    (!showingFlash && (
+    (!showingFlash && !showingPrivacyAbout && (
       <>
         <PaperProvider>
           <StatusBar style='light' hidden={false} />
