@@ -19,7 +19,7 @@ export default function App() {
   const [repeat, setRepeat] = useState(true);
   const [orientLandscape, setOrientLandscape] = useState(true);
   const [userStyles, setUserStyles] = useState(['black', 'yellow']);
-  const [userHasTyped, setUserHasTyped] = useState('rgb(71, 12, 122)');
+  const [userHasTyped, setUserHasTyped] = useState('rgb(71, 12, 122, 0)');
   const [showingPrivacyAbout, setShowingPrivacyAbout] = useState(false);
 
   const theme = useTheme();
@@ -79,7 +79,8 @@ export default function App() {
     if (enteredText) {
       setUserHasTyped('green');
     } else {
-      setUserHasTyped('rgb(71, 12, 122)');
+      setUserHasTyped('#3a4c57');
+      setShowingFlash(false);
     }
   };
 
@@ -127,7 +128,7 @@ export default function App() {
 
   const clearInput = () => {
     setEnteredText('');
-    setUserHasTyped('rgb(71, 12, 122)');
+    setUserHasTyped('#3a4c57');
   };
 
   const toggleStyle = () => {
@@ -195,7 +196,7 @@ export default function App() {
         <LinearGradient
           //     // Background Linear Gradient
           //     // colors={['#470c7a', 'transparent']}
-          colors={['#070707', '#3d2d79', '#17171a']}
+          colors={['rgb(7, 49, 67)', 'rgb(12, 89, 122)', 'rgb(11, 31, 40)']}
           // colors={['#2a0c44', '#451d6b', '#260c3d']}
           style={styles.background}
         />

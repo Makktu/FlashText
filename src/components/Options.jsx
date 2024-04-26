@@ -27,7 +27,7 @@ export default function Options({
   showingBgColor = firstBgLetter + remainingBgLetters;
   showingTxtColor = firstTxtLetter + remainingTxtLetters;
   if (showingBgColor[0] == '#') showingBgColor = 'Pink';
-
+  console.log(userHasTyped);
   return (
     <View style={styles.container}>
       {/* _________________ */}
@@ -37,7 +37,7 @@ export default function Options({
         onPress={startDisplay}
       >
         <Text style={styles.buttonText}>
-          {userHasTyped == 'green' ? 'START !' : ' '}
+          {userHasTyped == 'green' ? 'START !' : 'No text entered...'}
         </Text>
       </Button>
       {/* _________________ */}
@@ -47,14 +47,14 @@ export default function Options({
         style={[styles.button, { backgroundColor: bg }]}
       >
         <Text style={{ color: txt, fontWeight: 'bold', fontSize: 20 }}>
-          {showingTxtColor} on {showingBgColor}
+          Style: {showingTxtColor} on {showingBgColor}
         </Text>
       </Button>
       {/* _________________ */}
       {/* TIME PICKER BUTTON */}
       <View style={styles.timeBtnContainer}>
         <TouchableOpacity onPress={minusTimeHandler}>
-          <AntDesign name='minussquare' size={48} color='white' />
+          <AntDesign name='minussquare' size={52} color='#c9dbdb' />
         </TouchableOpacity>
         <View style={styles.timeTextContainer}>
           <Text
@@ -65,12 +65,11 @@ export default function Options({
               marginHorizontal: 4,
             }}
           >
-            {/* Flashtime{'\n'} */}
             {displayTime}s{/* {displayTime == 1 ? ' second' : ' seconds'} */}
           </Text>
         </View>
         <TouchableOpacity onPress={plusTimeHandler}>
-          <AntDesign name='plussquare' size={48} color='#f8f1f1' />
+          <AntDesign name='plussquare' size={52} color='#c9dbdb' />
         </TouchableOpacity>
       </View>
       {/* _________________ */}
@@ -88,7 +87,10 @@ export default function Options({
           {repeat ? 'Message Repeat: YES' : 'Message Repeat: NO'}
         </Text>
       </Button>
-      <Button onPress={privacyAbout} style={styles.button}>
+      <Button
+        onPress={privacyAbout}
+        style={[styles.button, { backgroundColor: '#1f2529' }]}
+      >
         <Text style={styles.buttonText}>Privacy & About</Text>
       </Button>
     </View>
@@ -107,7 +109,7 @@ const styles = StyleSheet.create({
     },
     margin: 4,
     // backgroundColor: '#rgb(44, 0, 81)',
-    backgroundColor: '#0835e9',
+    backgroundColor: 'rgb(24, 105, 127)',
     // backgroundColor: '#6523a0',
     // backgroundColor: '#a4118e',
     padding: 6,
@@ -120,8 +122,8 @@ const styles = StyleSheet.create({
     borderColor: '#faf6f6',
   },
   timeButton: {
-    height: 70,
-    width: 70,
+    // height: 70,
+    // width: 70,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
@@ -143,7 +145,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    height: 64,
+    height: 54,
+    marginTop: 4,
 
     // borderRadius: 240,
     // backgroundColor: '#a4118e',

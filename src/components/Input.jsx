@@ -14,7 +14,7 @@ export default function Input({
         textColor='white'
         style={{
           width: '100%',
-          backgroundColor: 'rgb(18, 18, 19)',
+          backgroundColor: 'rgb(5, 42, 53)',
           fontSize: 26,
           lineHeight: 29,
           fontWeight: 'bold',
@@ -27,7 +27,7 @@ export default function Input({
         mode='outlined'
         placeholder='ENTER MESSAGE'
         selectionColor='white'
-        activeOutlineColor='#1606eb'
+        activeOutlineColor='#f4f7f8'
         dense={false}
         keyboardAppearance='default'
       />

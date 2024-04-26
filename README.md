@@ -19,3 +19,9 @@ Revised plan for 1.0:
 - single screen of options
 - sense screen size and adjust if required
 - all to be done and uploaded and available on the App Store(s) by Thursday 2 May 2024; with lead time for app authorisation, submission by Friday 27 April 2024. 2 weeks and 3 days from now.
+
+# Known issues
+
+- Screen flashes when moving from Main screen to Privacy/About and back
+- Emojis don't display correctly in Portrait mode
+- Also in Portrait mode, user has to tap the word itself to return to main screen
