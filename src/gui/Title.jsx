@@ -2,13 +2,13 @@ import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { Image } from 'expo-image';
 
-const logoImg = require('./../../assets/flash_msg_logo1.png');
+const logoImg = require('./../../assets/textflash_logo3.png');
 
 export default function Title() {
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={logoImg} />
-      <Text style={styles.text}>TextFlash</Text>
+      {/* <Text style={styles.text}>TextFlash</Text> */}
     </View>
   );
 }

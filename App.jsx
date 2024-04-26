@@ -195,7 +195,8 @@ export default function App() {
         <LinearGradient
           //     // Background Linear Gradient
           //     // colors={['#470c7a', 'transparent']}
-          colors={['#2a0c44', '#451d6b', '#260c3d']}
+          colors={['#070707', '#3d2d79', '#17171a']}
+          // colors={['#2a0c44', '#451d6b', '#260c3d']}
           style={styles.background}
         />
         <PaperProvider>
