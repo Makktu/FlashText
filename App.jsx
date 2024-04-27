@@ -74,6 +74,19 @@ export default function App() {
     }
   }
 
+  async function startDisplay() {
+    if (!enteredText) {
+      console.log('nowt there');
+      return;
+    }
+    setMessageToDisplay(splitMessageForFlash(enteredText));
+    if (orientLandscape) {
+      currentViewIsLandscape = true;
+    }
+    await changeScreenOrientation();
+    setShowingFlash(true);
+  }
+
   const inputHandler = (enteredText) => {
     setEnteredText(enteredText);
     if (enteredText) {
@@ -143,19 +156,6 @@ export default function App() {
     }
     currentBg = userStyles[newStyle];
     setUserStyles([COLORS_BACKGROUND[newStyle], COLORS_TEXT[newStyle]]);
-  };
-
-  const startDisplay = () => {
-    if (!enteredText) {
-      console.log('nowt there');
-      return;
-    }
-    setMessageToDisplay(splitMessageForFlash(enteredText));
-    setShowingFlash(true);
-    if (orientLandscape) {
-      currentViewIsLandscape = true;
-    }
-    changeScreenOrientation();
   };
 
   const splitMessageForFlash = (message) => {
