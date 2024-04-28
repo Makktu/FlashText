@@ -1,22 +1,24 @@
 {
   "expo": {
-    "name": "flasher",
-    "slug": "flasher",
+    "name": "FlashText",
+    "slug": "flashtext",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000000"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "bundleIdentifier": "com.test.test",
-      "supportsTablet": true
+      "bundleIdentifier": "com.flashtext.mcnamara",
+      "supportsTablet": true,
+      "buildNumber": "3",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "This app does not require access to your microphone."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -29,8 +31,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "fef26eda-175f-4180-9b8d-ca2f16718ef6"
+        "projectId": "a0242b8a-7123-4a97-abff-1d8d22ffea18"
       }
-    }
+    },
+    "owner": "makktu"
   }
 }

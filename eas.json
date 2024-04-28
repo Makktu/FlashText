@@ -3,14 +3,22 @@
     "version": ">= 7.8.5"
   },
   "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
     "preview": {
-      "ios": {
-        "simulator": true
-      }
+      "distribution": "internal"
     },
     "production": {}
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "j_makn1@yahoo.co.uk",
+        "ascAppId": "6499479389",
+        "appleTeamId": "62XEFLWXXB"
+      }
+    }
   }
 }
