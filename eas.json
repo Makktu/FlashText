@@ -15,7 +15,7 @@
   "submit": {
     "production": {
       "ios": {
-        "appleId": "j_makn1@yahoo.co.uk",
+        "appleId": "${process.env.MY_EMAIL}",
         "ascAppId": "6499479389",
         "appleTeamId": "62XEFLWXXB"
       }

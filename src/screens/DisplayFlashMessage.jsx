@@ -73,21 +73,24 @@ export default function DisplayFlashMessage({
   };
 
   return (
-    <SafeAreaProvider>
-      <View style={[styles.container, { backgroundColor: userBg }]}>
-        <TouchableOpacity onPress={returnTap}>
-          <FlashView>
-            <Text
-              adjustsFontSizeToFit={true}
-              numberOfLines={1}
-              style={[styles.text, { color: userTxt, padding: 2 }]}
-            >
-              {message[nextWord]}
-            </Text>
-          </FlashView>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaProvider>
+    <>
+      <StatusBar backgroundColor={userBg} />
+      <SafeAreaProvider>
+        <View style={[styles.container, { backgroundColor: userBg }]}>
+          <TouchableOpacity onPress={returnTap}>
+            <FlashView>
+              <Text
+                adjustsFontSizeToFit={true}
+                numberOfLines={1}
+                style={[styles.text, { color: userTxt, padding: 2 }]}
+              >
+                {message[nextWord]}
+              </Text>
+            </FlashView>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaProvider>
+    </>
   );
 }
 

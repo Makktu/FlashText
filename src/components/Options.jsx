@@ -18,6 +18,7 @@ export default function Options({
   userHasTyped,
   clearInput,
   privacyAbout,
+  thisDevice,
 }) {
   let showingBgColor, showingTxtColor;
   let firstBgLetter = bg.charAt(0).toUpperCase();
@@ -79,7 +80,12 @@ export default function Options({
       </Button>
       <Button onPress={toggleUserOrientation} style={styles.button}>
         <Text style={styles.buttonText}>
-          Display: {orientIn ? 'LANDSCAPE' : 'PORTRAIT'}
+          Display:{' '}
+          {thisDevice == 'iPad'
+            ? 'iPad Rotation'
+            : orientIn
+            ? 'LANDSCAPE'
+            : 'PORTRAIT'}
         </Text>
       </Button>
       <Button onPress={repeatHandler} color={'black'} style={styles.button}>

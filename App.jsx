@@ -10,6 +10,7 @@ import DisplayFlashMessage from './src/screens/DisplayFlashMessage';
 import PrivacyAbout from './src/screens/PrivacyAbout';
 import { PaperProvider, useTheme } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as Device from 'expo-device';
 
 export default function App() {
   const [enteredText, setEnteredText] = useState('');
@@ -23,6 +24,9 @@ export default function App() {
   const [showingPrivacyAbout, setShowingPrivacyAbout] = useState(false);
 
   const theme = useTheme();
+
+  const thisDevice = Device.deviceName.slice(0, 4);
+  console.log(thisDevice);
 
   useEffect(() => {
     currentViewIsLandscape = false;
@@ -163,7 +167,12 @@ export default function App() {
   };
 
   const toggleUserOrientation = () => {
-    setOrientLandscape(!orientLandscape);
+    if (thisDevice == 'iPad') {
+      console.log('This is an iPad...');
+      return;
+    } else {
+      setOrientLandscape(!orientLandscape);
+    }
   };
 
   const privacyAbout = () => {
@@ -202,12 +211,11 @@ export default function App() {
         />
         <PaperProvider>
           <StatusBar style='light' hidden={false} />
-
-          <SafeAreaProvider style={[styles.container]}>
+          <SafeAreaProvider style={styles.container}>
             <SafeAreaView>
               <View>
                 <View>
-                  <Title />
+                  <Title thisDevice={thisDevice} />
                 </View>
                 <View>
                   <Input
@@ -234,6 +242,7 @@ export default function App() {
                     userHasTyped={userHasTyped}
                     clearInput={clearInput}
                     privacyAbout={privacyAbout}
+                    thisDevice={thisDevice}
                   />
                 </View>
               </View>
@@ -246,6 +255,30 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    textAlign: 'auto',
+    // alignItems: 'center',
+    // borderWidth: 4,
+    // borderColor: '#a4118e',
+  },
+  background: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: '100%',
+  },
+  textSmall: {
+    color: 'orangered',
+  },
+  optionsContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+const tabletStyles = StyleSheet.create({
   container: {
     flex: 1,
     textAlign: 'auto',
