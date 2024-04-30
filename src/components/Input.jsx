@@ -16,7 +16,7 @@ export default function Input({
           width: '100%',
           backgroundColor: 'rgb(5, 42, 53)',
           fontSize: 26,
-          lineHeight: 29,
+          lineHeight: 32,
           fontWeight: 'bold',
           textAlign: 'auto',
           height: 80,

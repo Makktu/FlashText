@@ -48,13 +48,13 @@ const styles = StyleSheet.create({
 
 const tabletStyles = StyleSheet.create({
   container: {
-    height: 300,
+    height: 160,
     width: '100%',
     backgroundColor: 'rgb(44, 0, 81)',
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 40,
+    marginVertical: 12,
   },
   text: {
     // color: 'rgb(169, 134, 203)',

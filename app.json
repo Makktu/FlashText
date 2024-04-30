@@ -2,7 +2,7 @@
   "expo": {
     "name": "FlashText",
     "slug": "flashtext",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -15,7 +15,7 @@
     "ios": {
       "bundleIdentifier": "com.flashtext.mcnamara",
       "supportsTablet": true,
-      "buildNumber": "3",
+      "buildNumber": "5",
       "infoPlist": {
         "NSMicrophoneUsageDescription": "This app does not require access to your microphone."
       }
