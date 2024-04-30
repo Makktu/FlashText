@@ -5,27 +5,16 @@ import React from 'react';
 export default function Input({
   enteredText = 'Enter Your Message',
   inputHandler,
-  thisWidth,
 }) {
   return (
     <View style={styles.container}>
       <TextInput
-        // multiline={true}
         textColor='white'
-        style={{
-          width: '100%',
-          backgroundColor: 'rgb(5, 42, 53)',
-          fontSize: 26,
-          lineHeight: 32,
-          fontWeight: 'bold',
-          textAlign: 'auto',
-          height: 80,
-        }}
-        label='Enter Message Here!'
+        style={styles.inputText}
         value={enteredText}
         onChangeText={inputHandler}
         mode='outlined'
-        placeholder='ENTER MESSAGE'
+        placeholder='Enter text here...'
         selectionColor='white'
         activeOutlineColor='#f4f7f8'
         dense={false}
@@ -39,16 +28,22 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     alignItems: 'center',
-    // justifyContent: 'center',
-    // width: '100%',
     marginTop: 10,
     marginHorizontal: 4,
   },
-  // input: {
-  //   height: 100,
-  //   width: 300,
-  //   borderRadius: 20,
-  //   backgroundColor: 'rgb(44, 0, 81)',
-  //   color: 'white',
-  // },
+  inputText: {
+    includeFontPadding: false,
+    paddingVertical: 12,
+    margin: 0,
+    width: '100%',
+    backgroundColor: 'rgb(5, 42, 53)',
+    fontSize: 26,
+    lineHeight: 28,
+    fontWeight: 'bold',
+    textAlign: 'auto',
+    justifyContent: 'center',
+    alignContent: 'center',
+    // textAlignVertical: 'center',
+    // height: 80,
+  },
 });

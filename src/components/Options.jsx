@@ -28,7 +28,6 @@ export default function Options({
   showingBgColor = firstBgLetter + remainingBgLetters;
   showingTxtColor = firstTxtLetter + remainingTxtLetters;
   if (showingBgColor[0] == '#') showingBgColor = 'Pink';
-  console.log(userHasTyped);
   return (
     <View style={styles.container}>
       {/* _________________ */}
@@ -45,9 +44,21 @@ export default function Options({
       {/* COLOR PICKER BUTTON */}
       <Button
         onPress={toggleStyle}
-        style={[styles.button, { backgroundColor: bg }]}
+        style={[
+          styles.button,
+          {
+            backgroundColor: bg,
+          },
+        ]}
       >
-        <Text style={{ color: txt, fontWeight: 'bold', fontSize: 20 }}>
+        <Text
+          style={{
+            color: txt,
+            fontWeight: 'bold',
+            fontSize: 20,
+            // lineHeight: 24,
+          }}
+        >
           Style: {showingTxtColor} on {showingBgColor}
         </Text>
       </Button>
@@ -114,22 +125,15 @@ const styles = StyleSheet.create({
       colors: { primary: '#f4efef' },
     },
     margin: 4,
-    // backgroundColor: '#rgb(44, 0, 81)',
     backgroundColor: 'rgb(24, 105, 127)',
-    // backgroundColor: '#6523a0',
-    // backgroundColor: '#a4118e',
     padding: 6,
     marginTop: 12,
-    height: 52,
+    height: 54,
     width: 300,
-    // justifyContent: 'center',
-    // alignItems: 'center',
     borderWidth: 1,
     borderColor: '#faf6f6',
   },
   timeButton: {
-    // height: 70,
-    // width: 70,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
@@ -153,9 +157,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     height: 54,
     marginTop: 4,
-
-    // borderRadius: 240,
-    // backgroundColor: '#a4118e',
   },
   timeTextContainer: {
     minWidth: 180,

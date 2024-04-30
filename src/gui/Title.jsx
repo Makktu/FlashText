@@ -1,9 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import { Image } from 'expo-image';
 
 const logoImg = require('./../../assets/flashtext_logo_e.png');
-const tabletLogoImg = require('./../../assets/flashtext_logo_e.png');
 
 export default function Title({ thisDevice = '' }) {
   console.log('>>>', thisDevice);
@@ -32,7 +31,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    // color: 'rgb(169, 134, 203)',
     color: 'white',
     fontSize: 60,
     fontWeight: 'bold',
@@ -57,7 +55,6 @@ const tabletStyles = StyleSheet.create({
     marginVertical: 12,
   },
   text: {
-    // color: 'rgb(169, 134, 203)',
     color: 'white',
     fontSize: 60,
     fontWeight: 'bold',

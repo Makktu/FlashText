@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -8,7 +8,7 @@ import Input from './src/components/Input';
 import Options from './src/components/Options';
 import DisplayFlashMessage from './src/screens/DisplayFlashMessage';
 import PrivacyAbout from './src/screens/PrivacyAbout';
-import { PaperProvider, useTheme } from 'react-native-paper';
+import { PaperProvider } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Device from 'expo-device';
 
@@ -22,11 +22,17 @@ export default function App() {
   const [userStyles, setUserStyles] = useState(['black', 'yellow']);
   const [userHasTyped, setUserHasTyped] = useState('rgb(71, 12, 122, 0)');
   const [showingPrivacyAbout, setShowingPrivacyAbout] = useState(false);
-
-  const theme = useTheme();
+  const [androidDetected, setAndroidDetected] = useState(false);
 
   const thisDevice = Device.deviceName.slice(0, 4);
-  console.log(thisDevice);
+  const thisPlatform = Platform.OS;
+
+  if (thisPlatform == 'android' && !androidDetected) {
+    // if Android, set default display time to 1.25
+    // to offset problem with smoothness of Animation
+    setUserTime(1.25);
+    setAndroidDetected(true);
+  }
 
   useEffect(() => {
     currentViewIsLandscape = false;
@@ -64,7 +70,7 @@ export default function App() {
   // _________________________________get user screen dimensions
   screenWidth = Dimensions.get('window').width;
   screenHeight = Dimensions.get('window').height;
-  console.log(`User Screen: ${screenWidth} WIDTH / ${screenHeight} HEIGHT`);
+  // _______________________________________________________
 
   async function changeScreenOrientation() {
     if (orientLandscape && currentViewIsLandscape) {
@@ -80,7 +86,6 @@ export default function App() {
 
   async function startDisplay() {
     if (!enteredText) {
-      console.log('nowt there');
       return;
     }
     setMessageToDisplay(splitMessageForFlash(enteredText));
@@ -139,10 +144,6 @@ export default function App() {
     changeScreenOrientation();
   };
 
-  const toggleColors = () => {
-    console.log('Color toggler...');
-  };
-
   const clearInput = () => {
     setEnteredText('');
     setUserHasTyped('#3a4c57');
@@ -168,7 +169,6 @@ export default function App() {
 
   const toggleUserOrientation = () => {
     if (thisDevice == 'iPad') {
-      console.log('This is an iPad...');
       return;
     } else {
       setOrientLandscape(!orientLandscape);
@@ -176,16 +176,11 @@ export default function App() {
   };
 
   const privacyAbout = () => {
-    console.log('connected');
     setShowingPrivacyAbout(true);
   };
 
   return (
-    (showingPrivacyAbout && (
-      <SafeAreaProvider>
-        <PrivacyAbout returnTap={returnTap} />
-      </SafeAreaProvider>
-    )) ||
+    (showingPrivacyAbout && <PrivacyAbout returnTap={returnTap} />) ||
     (showingFlash && (
       <SafeAreaProvider>
         <DisplayFlashMessage
@@ -203,10 +198,7 @@ export default function App() {
     (!showingFlash && !showingPrivacyAbout && (
       <>
         <LinearGradient
-          //     // Background Linear Gradient
-          //     // colors={['#470c7a', 'transparent']}
           colors={['rgb(7, 49, 67)', 'rgb(12, 89, 122)', 'rgb(11, 31, 40)']}
-          // colors={['#2a0c44', '#451d6b', '#260c3d']}
           style={styles.background}
         />
         <PaperProvider>
@@ -222,7 +214,6 @@ export default function App() {
                     enteredText={enteredText}
                     inputHandler={inputHandler}
                     clearPressHandler={clearPressHandler}
-                    thisWidth={screenWidth}
                   />
                 </View>
                 <View style={styles.optionsContainer}>
@@ -235,7 +226,6 @@ export default function App() {
                     repeat={repeat}
                     orientIn={orientLandscape}
                     toggleUserOrientation={toggleUserOrientation}
-                    toggleColors={toggleColors}
                     toggleStyle={toggleStyle}
                     bg={userBgColor}
                     txt={userTxtColor}
@@ -258,9 +248,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     textAlign: 'auto',
-    // alignItems: 'center',
-    // borderWidth: 4,
-    // borderColor: '#a4118e',
   },
   background: {
     position: 'absolute',
@@ -282,9 +269,6 @@ const tabletStyles = StyleSheet.create({
   container: {
     flex: 1,
     textAlign: 'auto',
-    // alignItems: 'center',
-    // borderWidth: 4,
-    // borderColor: '#a4118e',
   },
   background: {
     position: 'absolute',

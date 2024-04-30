@@ -60,8 +60,6 @@ export default function DisplayFlashMessage({
         <Animated.View
           style={{
             opacity: animatedValue,
-            // height: '100%',
-            // width: '100%',
             alignItems: 'center',
             justifyContent: 'center',
           }}
@@ -75,9 +73,9 @@ export default function DisplayFlashMessage({
   return (
     <>
       <StatusBar backgroundColor={userBg} />
-      <SafeAreaProvider>
-        <View style={[styles.container, { backgroundColor: userBg }]}>
-          <TouchableOpacity onPress={returnTap}>
+      <SafeAreaProvider style={[styles.container, { backgroundColor: userBg }]}>
+        <TouchableOpacity onPress={returnTap}>
+          <View>
             <FlashView>
               <Text
                 adjustsFontSizeToFit={true}
@@ -87,8 +85,8 @@ export default function DisplayFlashMessage({
                 {message[nextWord]}
               </Text>
             </FlashView>
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
       </SafeAreaProvider>
     </>
   );
