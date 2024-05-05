@@ -23,3 +23,7 @@ The user can choose to display the message once, a set number of times, or conti
 - Display to pause briefly at extra spaces and the end of sentences (optional for user)
 - TICKERTAPE DISPLAY OPTION
 - User-selectable fonts
+
+# required additions:
+
+- Prevent display sleep (optional for user - iPad is poor for this)
