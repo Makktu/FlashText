@@ -1,6 +1,8 @@
-# Flasher
+# FlashText
 
 # Version 1.0.2 is Live in the iOS App Store as of 30 April 2024
+
+# Android version is In Review
 
 This README last updated: 30 April 2024
 
