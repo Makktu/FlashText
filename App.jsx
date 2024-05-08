@@ -82,6 +82,7 @@ export default function App() {
   // _________________________________get user screen dimensions
   screenWidth = Dimensions.get('window').width;
   screenHeight = Dimensions.get('window').height;
+  console.log(screenHeight);
   // _______________________________________________________
 
   async function changeScreenOrientation() {
@@ -206,7 +207,13 @@ export default function App() {
     (showingPrivacyAbout && <PrivacyAbout returnTap={returnTap} />) ||
     (showingScrolling && (
       <SafeAreaProvider>
-        <DisplayScrollingMessage message={enteredText} returnTap={returnTap} />
+        <DisplayScrollingMessage
+          message={enteredText}
+          returnTap={returnTap}
+          height={screenHeight}
+          width={screenWidth}
+          whichWayUp={orientLandscape}
+        />
       </SafeAreaProvider>
     )) ||
     (showingFlash && (

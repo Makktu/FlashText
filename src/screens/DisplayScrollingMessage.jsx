@@ -4,11 +4,20 @@ import {
   TouchableOpacity,
   Animated,
   StatusBar,
+  height,
+  width,
+  whichWayUp,
 } from 'react-native';
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-const TickerView = ({ children }) => {
-  const animatedValue = useRef(new Animated.Value(600)).current; // initial value for position
+const TickerView = ({ children, width, height, isLandScape }) => {
+  let startingPoint;
+  if (isLandScape) {
+    startingPoint = height - 200;
+  } else {
+    startingPoint = width - 100;
+  }
+  const animatedValue = useRef(new Animated.Value(startingPoint)).current; // initial value for position
 
   useEffect(() => {
     StatusBar.setHidden(true);
@@ -16,10 +25,12 @@ const TickerView = ({ children }) => {
 
   useEffect(() => {
     Animated.timing(animatedValue, {
-      toValue: -3000, // value hardcoded for now - to change dynamically based on user input
-      duration: 15000, // back to userTime when bugs worked out
+      toValue: -startingPoint + -startingPoint / 2, // value hardcoded for now - to change dynamically based on user input
+      duration: 5000, // back to userTime when bugs worked out
       useNativeDriver: true,
-    }).start();
+    }).start(({ finished }) => {
+      console.log('ended');
+    });
   }, [animatedValue]);
 
   return (
@@ -42,21 +53,23 @@ export default function DisplayScrollingMessage({
   returnTap,
   width,
   height,
+  whichWayUp,
   length,
   userTime,
 }) {
   // console.log(`Height: ${height}, Width: ${width}`);
-  console.log(message);
+  console.log(message, height, width, whichWayUp);
 
   return (
     <>
       <TouchableOpacity style={styles.container} onPress={returnTap}>
         <TickerView
           // style={{ height: '100%', width: '100%' }}
-          // width={width}
-          // height={height}
+          width={width}
+          height={height}
           messageLength={length}
           userTime={userTime}
+          isLandScape={whichWayUp}
         >
           <Text
             style={styles.text}
