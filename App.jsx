@@ -7,6 +7,7 @@ import Title from './src/gui/Title';
 import Input from './src/components/Input';
 import Options from './src/components/Options';
 import DisplayFlashMessage from './src/screens/DisplayFlashMessage';
+import DisplayScrollingMessage from './src/screens/DisplayScrollingMessage';
 import PrivacyAbout from './src/screens/PrivacyAbout';
 import { PaperProvider } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -16,13 +17,16 @@ export default function App() {
   const [enteredText, setEnteredText] = useState('');
   const [messageToDisplay, setMessageToDisplay] = useState();
   const [showingFlash, setShowingFlash] = useState(false);
+  const [showingScrolling, setShowingScrolling] = useState(false);
   const [userTime, setUserTime] = useState(0.75);
+  const [scrollTime, setScrollTime] = useState('Slow');
   const [repeat, setRepeat] = useState(true);
   const [orientLandscape, setOrientLandscape] = useState(true);
   const [userStyles, setUserStyles] = useState(['black', 'yellow']);
   const [userHasTyped, setUserHasTyped] = useState('rgb(71, 12, 122, 0)');
   const [showingPrivacyAbout, setShowingPrivacyAbout] = useState(false);
   const [androidDetected, setAndroidDetected] = useState(false);
+  const [displayType, setDisplayType] = useState('flash');
 
   const thisDevice = Device.deviceName.slice(0, 4);
   const thisPlatform = Platform.OS;
@@ -65,6 +69,14 @@ export default function App() {
   const displayTimeAmounts = [
     0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5,
   ];
+  const scrollingTimeAmounts = [
+    'Very Slow',
+    'Slower',
+    'Slow',
+    'Fast',
+    'Faster',
+    'Very Fast',
+  ];
 
   // ________________________________ debug info
   // _________________________________get user screen dimensions
@@ -88,12 +100,16 @@ export default function App() {
     if (!enteredText) {
       return;
     }
-    setMessageToDisplay(splitMessageForFlash(enteredText));
     if (orientLandscape) {
       currentViewIsLandscape = true;
     }
     await changeScreenOrientation();
-    setShowingFlash(true);
+    if (displayType == 'flash') {
+      setMessageToDisplay(splitMessageForFlash(enteredText));
+      setShowingFlash(true);
+    } else {
+      setShowingScrolling(true);
+    }
   }
 
   const inputHandler = (enteredText) => {
@@ -139,8 +155,9 @@ export default function App() {
   const returnTap = () => {
     setShowingPrivacyAbout(false);
     // default screen displays when returning from display screens
-    // always return to portrait orientation (have to change for iPad version)
+    // always return to portrait orientation
     setShowingFlash(false);
+    setShowingScrolling(false);
     changeScreenOrientation();
   };
 
@@ -175,12 +192,23 @@ export default function App() {
     }
   };
 
+  const toggleDisplayType = () => {
+    displayType == 'flash'
+      ? setDisplayType('scrolling')
+      : setDisplayType('flash');
+  };
+
   const privacyAbout = () => {
     setShowingPrivacyAbout(true);
   };
 
   return (
     (showingPrivacyAbout && <PrivacyAbout returnTap={returnTap} />) ||
+    (showingScrolling && (
+      <SafeAreaProvider>
+        <DisplayScrollingMessage message={enteredText} returnTap={returnTap} />
+      </SafeAreaProvider>
+    )) ||
     (showingFlash && (
       <SafeAreaProvider>
         <DisplayFlashMessage
@@ -223,6 +251,7 @@ export default function App() {
                     plusTimeHandler={plusTimeHandler}
                     repeatHandler={repeatHandler}
                     displayTime={userTime}
+                    scrollingDisplayTime={scrollTime}
                     repeat={repeat}
                     orientIn={orientLandscape}
                     toggleUserOrientation={toggleUserOrientation}
@@ -233,6 +262,8 @@ export default function App() {
                     clearInput={clearInput}
                     privacyAbout={privacyAbout}
                     thisDevice={thisDevice}
+                    displayType={displayType}
+                    toggleDisplayType={toggleDisplayType}
                   />
                 </View>
               </View>

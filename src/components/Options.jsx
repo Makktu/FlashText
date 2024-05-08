@@ -19,6 +19,9 @@ export default function Options({
   clearInput,
   privacyAbout,
   thisDevice,
+  displayType,
+  toggleDisplayType,
+  scrollingDisplayTime,
 }) {
   let showingBgColor, showingTxtColor;
   let firstBgLetter = bg.charAt(0).toUpperCase();
@@ -77,7 +80,7 @@ export default function Options({
               marginHorizontal: 4,
             }}
           >
-            {displayTime}s{/* {displayTime == 1 ? ' second' : ' seconds'} */}
+            {displayType == 'flash' ? `${displayTime}s` : scrollingDisplayTime}
           </Text>
         </View>
         <TouchableOpacity onPress={plusTimeHandler}>
@@ -89,14 +92,19 @@ export default function Options({
       <Button onPress={clearInput} style={styles.button}>
         <Text style={styles.buttonText}>Clear Input</Text>
       </Button>
+      <Button onPress={toggleDisplayType} style={styles.button}>
+        <Text style={styles.buttonText}>
+          {displayType == 'flash' ? 'Flash' : 'Scrolling'}
+        </Text>
+      </Button>
       <Button onPress={toggleUserOrientation} style={styles.button}>
         <Text style={styles.buttonText}>
-          Display:{' '}
+          Display:
           {thisDevice == 'iPad'
-            ? 'iPad Rotation'
+            ? ' iPad Rotation'
             : orientIn
-            ? 'LANDSCAPE'
-            : 'PORTRAIT'}
+            ? ' LANDSCAPE'
+            : ' PORTRAIT'}
         </Text>
       </Button>
       <Button onPress={repeatHandler} color={'black'} style={styles.button}>

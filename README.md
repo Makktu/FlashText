@@ -25,6 +25,7 @@ The user can choose to display the message once, a set number of times, or conti
 - Display to pause briefly at extra spaces and the end of sentences (optional for user)
 - TICKERTAPE DISPLAY OPTION
 - User-selectable fonts
+- Random display colour changes per word or phrase (user-customisable)
 
 # required additions:
 

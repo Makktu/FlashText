@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import React, { useEffect, useRef } from 'react';
 
-const TickerView = ({ height, width, messageLength, userTime, children }) => {
+const TickerView = ({ children }) => {
   const animatedValue = useRef(new Animated.Value(600)).current; // initial value for position
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const TickerView = ({ height, width, messageLength, userTime, children }) => {
   useEffect(() => {
     Animated.timing(animatedValue, {
       toValue: -3000, // value hardcoded for now - to change dynamically based on user input
-      duration: 3000, // back to userTime when bugs worked out
+      duration: 15000, // back to userTime when bugs worked out
       useNativeDriver: true,
     }).start();
   }, [animatedValue]);
@@ -37,7 +37,7 @@ const TickerView = ({ height, width, messageLength, userTime, children }) => {
   );
 };
 
-export default function DisplayTickertapeMessage({
+export default function DisplayScrollingMessage({
   message,
   returnTap,
   width,
@@ -45,7 +45,7 @@ export default function DisplayTickertapeMessage({
   length,
   userTime,
 }) {
-  console.log(`Height: ${height}, Width: ${width}`);
+  // console.log(`Height: ${height}, Width: ${width}`);
   console.log(message);
 
   return (
@@ -58,7 +58,13 @@ export default function DisplayTickertapeMessage({
           messageLength={length}
           userTime={userTime}
         >
-          <Text style={styles.text}>{message}</Text>
+          <Text
+            style={styles.text}
+            adjustsFontSizeToFit={true}
+            numberOfLines={1}
+          >
+            {message}
+          </Text>
         </TickerView>
       </TouchableOpacity>
     </>
@@ -73,13 +79,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     height: '100%',
-    borderColor: 'red',
-    borderWidth: 2,
   },
   text: {
-    fontSize: 150,
+    fontSize: 1000,
+    height: 300,
     color: 'orangered',
-    borderColor: 'yellow',
-    borderWidth: 2,
   },
 });
