@@ -1,3 +1,5 @@
+import { useKeepAwake } from 'expo-keep-awake';
+
 import {
   StyleSheet,
   Text,
@@ -24,6 +26,7 @@ export default function DisplayFlashMessage({
   userTxt,
 }) {
   //disable statusbar in message display
+  useKeepAwake();
   const wordDuration = userTime;
   const [nextWord, setNextWord] = useState(0);
   const insets = useSafeAreaInsets();
@@ -33,6 +36,8 @@ export default function DisplayFlashMessage({
   }, []);
 
   const FlashView = ({ children }) => {
+    useKeepAwake();
+
     const animatedValue = useRef(new Animated.Value(0)).current; // initial value for word opacity
 
     useEffect(() => {
