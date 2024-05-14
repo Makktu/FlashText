@@ -15,22 +15,30 @@ import {
 } from 'react-native-safe-area-context';
 
 export default function DisplayFlashMessage({
-  height,
-  width,
   userTime,
   returnTap,
   message,
   repeat,
   userBg,
   userTxt,
+  randomBgColors,
+  randomTxtColors,
 }) {
   useKeepAwake();
-  console.log('working in this one');
-
   //disable statusbar in message display
   const wordDuration = userTime;
   const [nextWord, setNextWord] = useState(0);
+  const [isRandom, setIsRandom] = useState(userBg == 'random');
   const insets = useSafeAreaInsets();
+
+  if (isRandom) {
+    // get random number between 0 and bg array length
+    let theRandomPick = Math.floor(Math.random() * randomBgColors.length - 1);
+    userBg = randomBgColors[theRandomPick];
+    userTxt = randomTxtColors[theRandomPick];
+    // make bg = it
+    // make txt = it
+  }
 
   useEffect(() => {
     StatusBar.setHidden(true);
@@ -38,8 +46,6 @@ export default function DisplayFlashMessage({
 
   const FlashView = ({ children }) => {
     useKeepAwake();
-    console.log('working in this one');
-
     const animatedValue = useRef(new Animated.Value(0)).current; // initial value for word opacity
 
     useEffect(() => {

@@ -47,6 +47,7 @@ export default function App() {
     'blue',
     'white',
     '#F535AA',
+    'random',
   ];
   const COLORS_TEXT = [
     'yellow',
@@ -56,6 +57,7 @@ export default function App() {
     'white',
     'black',
     'white',
+    'random',
   ];
   let userBgColor = userStyles[0];
   let userTxtColor = userStyles[1];
@@ -192,6 +194,11 @@ export default function App() {
           height={screenHeight}
           userBg={userBgColor}
           userTxt={userTxtColor}
+          randomBgColors={COLORS_BACKGROUND.splice(
+            0,
+            COLORS_BACKGROUND.length - 1
+          )}
+          randomTxtColors={COLORS_TEXT.splice(0, COLORS_TEXT.length - 1)}
         />
       </SafeAreaProvider>
     )) ||

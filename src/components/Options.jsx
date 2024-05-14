@@ -20,6 +20,9 @@ export default function Options({
   privacyAbout,
   thisDevice,
 }) {
+  if (bg == 'random') {
+    bg = 'whitesmoke';
+  }
   let showingBgColor, showingTxtColor;
   let firstBgLetter = bg.charAt(0).toUpperCase();
   let firstTxtLetter = txt.charAt(0).toUpperCase();
@@ -28,6 +31,7 @@ export default function Options({
   showingBgColor = firstBgLetter + remainingBgLetters;
   showingTxtColor = firstTxtLetter + remainingTxtLetters;
   if (showingBgColor[0] == '#') showingBgColor = 'Pink';
+
   return (
     <View style={styles.container}>
       {/* _________________ */}
@@ -59,7 +63,9 @@ export default function Options({
             // lineHeight: 24,
           }}
         >
-          Style: {showingTxtColor} on {showingBgColor}
+          {txt == 'random'
+            ? 'DYNAMIC RANDOM!'
+            : `Style: ${showingTxtColor} on ${showingBgColor}`}
         </Text>
       </Button>
       {/* _________________ */}
@@ -91,12 +97,12 @@ export default function Options({
       </Button>
       <Button onPress={toggleUserOrientation} style={styles.button}>
         <Text style={styles.buttonText}>
-          Display:{' '}
+          Display:
           {thisDevice == 'iPad'
-            ? 'iPad Rotation'
+            ? ' iPad Rotation'
             : orientIn
-            ? 'LANDSCAPE'
-            : 'PORTRAIT'}
+            ? ' LANDSCAPE'
+            : ' PORTRAIT'}
         </Text>
       </Button>
       <Button onPress={repeatHandler} color={'black'} style={styles.button}>
