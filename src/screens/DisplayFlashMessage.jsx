@@ -32,12 +32,9 @@ export default function DisplayFlashMessage({
   const insets = useSafeAreaInsets();
 
   if (isRandom) {
-    // get random number between 0 and bg array length
     let theRandomPick = Math.floor(Math.random() * randomBgColors.length - 1);
     userBg = randomBgColors[theRandomPick];
     userTxt = randomTxtColors[theRandomPick];
-    // make bg = it
-    // make txt = it
   }
 
   useEffect(() => {
