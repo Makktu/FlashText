@@ -20,8 +20,11 @@ export default function Options({
   privacyAbout,
   thisDevice,
 }) {
+  let randomFlag = false;
   if (bg == 'random') {
-    bg = 'whitesmoke';
+    bg = 'rgb(24, 105, 127)';
+    txt = 'white';
+    randomFlag = true;
   }
   let showingBgColor, showingTxtColor;
   let firstBgLetter = bg.charAt(0).toUpperCase();
@@ -63,8 +66,8 @@ export default function Options({
             // lineHeight: 24,
           }}
         >
-          {txt == 'random'
-            ? 'DYNAMIC RANDOM!'
+          {randomFlag
+            ? 'Style: RANDOM'
             : `Style: ${showingTxtColor} on ${showingBgColor}`}
         </Text>
       </Button>
@@ -83,7 +86,7 @@ export default function Options({
               marginHorizontal: 4,
             }}
           >
-            {displayTime}s{/* {displayTime == 1 ? ' second' : ' seconds'} */}
+            {displayTime}s
           </Text>
         </View>
         <TouchableOpacity onPress={plusTimeHandler}>
