@@ -23,6 +23,8 @@ export default function DisplayFlashMessage({
   userTxt,
   randomBgColors,
   randomTxtColors,
+  notifyRandom,
+  lastNumber,
 }) {
   useKeepAwake();
   //disable statusbar in message display
@@ -31,10 +33,24 @@ export default function DisplayFlashMessage({
   const [isRandom, setIsRandom] = useState(userBg == 'random');
   const insets = useSafeAreaInsets();
 
+  console.log('last number from parent: ', lastNumber);
+
   if (isRandom) {
-    let theRandomPick = Math.floor(Math.random() * randomBgColors.length - 1);
+    let theRandomPick = Math.floor(Math.random() * randomBgColors.length);
+    console.log(theRandomPick, lastNumber);
+    if (theRandomPick == lastNumber) {
+      console.log('duplicate detected');
+      theRandomPick += 1;
+      if (theRandomPick > randomBgColors.length) {
+        // always reset to 0 in case the adjusted number
+        // is greater than teh length of the array
+        theRandomPick = 0;
+      }
+      // and always report to parent component
+    }
     userBg = randomBgColors[theRandomPick];
     userTxt = randomTxtColors[theRandomPick];
+    notifyRandom(theRandomPick);
   }
 
   useEffect(() => {

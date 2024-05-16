@@ -27,6 +27,8 @@ export default function App() {
   const thisDevice = Device.deviceName.slice(0, 4);
   const thisPlatform = Platform.OS;
 
+  let lastNumber;
+
   if (thisPlatform == 'android' && !androidDetected) {
     // if Android, set default display time to 1.25
     // to offset problem with smoothness of Animation
@@ -181,6 +183,14 @@ export default function App() {
     setShowingPrivacyAbout(true);
   };
 
+  const notifyRandom = (randomNumber) => {
+    // is called whenever the user picks 'RANDOM'
+    // and prevents the same colours being used
+    // twice in a rwo
+    console.log('>>', randomNumber);
+    lastNumber = randomNumber;
+  };
+
   return (
     (showingPrivacyAbout && <PrivacyAbout returnTap={returnTap} />) ||
     (showingFlash && (
@@ -199,6 +209,8 @@ export default function App() {
             COLORS_BACKGROUND.length - 1
           )}
           randomTxtColors={COLORS_TEXT.splice(0, COLORS_TEXT.length - 1)}
+          notifyRandom={notifyRandom}
+          lastNumber={lastNumber}
         />
       </SafeAreaProvider>
     )) ||
