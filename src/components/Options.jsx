@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
       colors: { primary: '#f4efef' },
     },
     margin: 4,
-    backgroundColor: 'rgb(24, 105, 127)',
+    backgroundColor: 'rgb(73, 14, 87)',
     padding: 6,
     marginTop: 12,
     height: 54,

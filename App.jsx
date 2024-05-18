@@ -217,7 +217,7 @@ export default function App() {
     (!showingFlash && !showingPrivacyAbout && (
       <>
         <LinearGradient
-          colors={['rgb(7, 49, 67)', 'rgb(12, 89, 122)', 'rgb(11, 31, 40)']}
+          colors={['rgb(67, 7, 67)', 'rgb(122, 12, 122)', 'rgb(35, 11, 40)']}
           style={styles.background}
         />
         <PaperProvider>
