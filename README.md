@@ -20,12 +20,7 @@ The user can choose to display the message once, a set number of times, or conti
 - Cannot tap anywhere on screen during message display to return to main app screen (Android)
 - Animation of messages is jerky and out of sync with time intervals (Android)
 
-# Planned additions for future versions:
+# Planned additions for version 1.2:
 
-- Display to pause briefly at extra spaces and the end of sentences (optional for user)
-- TICKERTAPE DISPLAY OPTION
-- User-selectable fonts
-
-# required additions:
-
-- Prevent display sleep (optional for user - iPad is poor for this)
+- Random colour selection option
+- overhauled UI
