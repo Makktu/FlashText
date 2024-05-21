@@ -16,7 +16,7 @@ export default function Input({
         mode='outlined'
         placeholder='Enter text here...'
         selectionColor='white'
-        activeOutlineColor='#f4f7f8'
+        activeOutlineColor='#dd7300'
         dense={false}
         keyboardAppearance='default'
       />
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     margin: 0,
     width: '100%',
-    backgroundColor: 'rgb(5, 42, 53)',
+    backgroundColor: 'rgb(67, 46, 26)',
     fontSize: 26,
     lineHeight: 28,
     fontWeight: 'bold',

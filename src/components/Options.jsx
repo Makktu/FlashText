@@ -22,8 +22,8 @@ export default function Options({
 }) {
   let randomFlag = false;
   if (bg == 'random') {
-    bg = 'rgb(24, 105, 127)';
-    txt = 'white';
+    bg = 'rgb(221, 115, 0)';
+    txt = 'black';
     randomFlag = true;
   }
   let showingBgColor, showingTxtColor;
@@ -43,7 +43,7 @@ export default function Options({
         style={(styles.button, { backgroundColor: userHasTyped })}
         onPress={startDisplay}
       >
-        <Text style={styles.buttonText}>
+        <Text style={styles.goButtonText}>
           {userHasTyped == 'green' ? 'START !' : 'No text entered...'}
         </Text>
       </Button>
@@ -75,14 +75,14 @@ export default function Options({
       {/* TIME PICKER BUTTON */}
       <View style={styles.timeBtnContainer}>
         <TouchableOpacity onPress={minusTimeHandler}>
-          <AntDesign name='minussquare' size={52} color='#c9dbdb' />
+          <AntDesign name='minussquare' size={52} color='#cd852e' />
         </TouchableOpacity>
         <View style={styles.timeTextContainer}>
           <Text
             style={{
               fontSize: 28,
               fontWeight: 'bold',
-              color: 'white',
+              color: '#dd7300',
               marginHorizontal: 4,
             }}
           >
@@ -90,7 +90,7 @@ export default function Options({
           </Text>
         </View>
         <TouchableOpacity onPress={plusTimeHandler}>
-          <AntDesign name='plussquare' size={52} color='#c9dbdb' />
+          <AntDesign name='plussquare' size={52} color='#cd852e' />
         </TouchableOpacity>
       </View>
       {/* _________________ */}
@@ -131,30 +131,35 @@ const styles = StyleSheet.create({
   button: {
     display: 'flex',
     theme: {
-      colors: { primary: '#f4efef' },
+      colors: { primary: '#e98f09' },
     },
     margin: 4,
-    backgroundColor: 'rgb(73, 14, 87)',
+    backgroundColor: 'rgb(17, 16, 17)',
     padding: 6,
     marginTop: 12,
     height: 54,
     width: 300,
     borderWidth: 1,
-    borderColor: '#faf6f6',
+    borderColor: '#dd7300',
   },
   timeButton: {
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: '#dd7300',
   },
   buttonText: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: '#dd7300',
+  },
+  goButtonText: {
     fontWeight: 'bold',
     fontSize: 18,
     color: 'white',
   },
   goButtonContainer: {
-    marginBottom: 8,
+    marginBottom: 4,
   },
   goButton: {
     height: 40,

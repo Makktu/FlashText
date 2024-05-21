@@ -15,24 +15,15 @@ export default function PrivacyAbout({ returnTap }) {
             <Text style={styles.heading}>Privacy</Text>
             <Text style={styles.text}>
               Your messages are not sent anywhere.{'\n'}They do not leave your
-              device.
+              device and are not seen by any party other than those you show
+              them to.
             </Text>
-            <Text style={styles.text}>
-              The only people who see your messages are those you show them to.
-            </Text>
+            <Text style={styles.heading}>About FlashText</Text>
             <Text style={styles.text}>
               You own the app forever.{'\n'}No registration, no logging in, no
               nags to upgrade.{'\n'}
             </Text>
-            <Text style={styles.heading}>About FlashText</Text>
             <Text style={styles.text}>Developer: John McNamara</Text>
-            <Text style={styles.text}>
-              Coming in Version 2:{'\n'}- Tickertape & scrolling options
-              {'\n'}- User-customisable colours & fonts.{'\n'}- Ability to save
-              favourite words & phrases & emojis.{'\n'}- Education packs for
-              parents and teachers.{'\n'}
-              {'\n'}ETA: Q4 2024.
-            </Text>
             <Text style={styles.heading}>
               Tap anywhere to close this screen.
             </Text>
@@ -48,7 +39,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     height: '100%',
-    backgroundColor: 'rgb(12, 89, 122)',
+    backgroundColor: 'rgb(61, 32, 2)',
   },
   privacyAndAbout: {
     // marginTop: 60,

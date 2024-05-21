@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import { Image } from 'expo-image';
 
-const logoImg = require('./../../assets/flashtext_logo_e.png');
+const logoImg = require('./../../assets/flashtext_logo_v2.png');
 
 export default function Title({ thisDevice = '' }) {
   console.log('>>>', thisDevice);
