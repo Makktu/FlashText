@@ -5,7 +5,6 @@ import { Image } from 'expo-image';
 const logoImg = require('./../../assets/flashtext_logo_v2.png');
 
 export default function Title({ thisDevice = '' }) {
-  console.log('>>>', thisDevice);
   if (thisDevice == 'iPad') {
     return (
       <View style={tabletStyles.container}>
