@@ -100,6 +100,11 @@ export default function App() {
     setShowingFlash(true);
   }
 
+  /**
+   * handle the input
+   * from the user and
+   * add it to the string
+   */
   const inputHandler = (enteredText) => {
     setEnteredText(enteredText);
     if (enteredText) {
